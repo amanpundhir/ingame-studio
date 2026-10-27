@@ -26,14 +26,14 @@ const OPTIONS: { id: ViewerPersona; label: string; icon: string; color: string; 
 export const PersonaSwitcher: React.FC<PersonaSwitcherProps> = ({ persona, favoriteClub, onSelectPersona, onSelectClub }) => (
   <div className="persona-switcher" role="group" aria-label="Audience persona for every tab">
     <style>{`
-      .persona-switcher { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; }
+      .persona-switcher { display: flex; align-items: center; gap: 6px; flex-wrap: nowrap; white-space: nowrap; flex-shrink: 0; }
       .persona-switcher .ps-label { font: 800 9px var(--font-mono, monospace); letter-spacing: 0.1em; color: var(--color-text-secondary, #8b9bb4); text-transform: uppercase; }
       .persona-switcher .ps-pills { display: flex; gap: 2px; padding: 2px; border-radius: 8px; background: rgba(0,0,0,0.4); border: 1px solid var(--color-border-subtle, #1e2a3a); }
       .persona-switcher .ps-pill { display: flex; align-items: center; gap: 4px; border: none; border-radius: 6px; padding: 4px 9px; cursor: pointer;
         font: 700 11px var(--font-display, sans-serif); background: transparent; color: var(--color-text-secondary, #8b9bb4); }
       .persona-switcher .ps-pill:hover { color: var(--color-text-primary, #f0f4f8); }
       .persona-switcher .ps-club { display: flex; gap: 2px; }
-      .persona-switcher .ps-club button { border-radius: 12px; padding: 3px 8px; font: 800 10px var(--font-display, sans-serif); cursor: pointer; }
+      .persona-switcher .ps-club button { border-radius: 12px; padding: 3px 8px; font: 800 10px var(--font-display, sans-serif); cursor: pointer; white-space: nowrap; }
     `}</style>
     <span className="ps-label">Persona</span>
     <div className="ps-pills" role="tablist">
@@ -65,23 +65,27 @@ export const PersonaSwitcher: React.FC<PersonaSwitcherProps> = ({ persona, favor
       <div className="ps-club" aria-label="Club allegiance">
         <button
           onClick={() => onSelectClub('Northbridge Lions')}
+          title="Support Northbridge Lions"
+          aria-label="Support Northbridge Lions"
           style={{
             background: favoriteClub === 'Northbridge Lions' ? 'var(--color-team-home)' : 'rgba(239,1,7,0.1)',
             color: favoriteClub === 'Northbridge Lions' ? '#fff' : 'var(--color-team-home)',
             border: '1px solid var(--color-team-home)',
           }}
         >
-          Northbridge Lions
+          NBL
         </button>
         <button
           onClick={() => onSelectClub('Harbourside City')}
+          title="Support Harbourside City"
+          aria-label="Support Harbourside City"
           style={{
             background: favoriteClub === 'Harbourside City' ? 'var(--color-team-away)' : 'rgba(108,171,221,0.1)',
             color: favoriteClub === 'Harbourside City' ? '#080b0f' : 'var(--color-team-away)',
             border: '1px solid var(--color-team-away)',
           }}
         >
-          Harbourside
+          HSC
         </button>
       </div>
     )}

@@ -1878,6 +1878,31 @@ body[lang="ar"],
   display: flex;
   align-items: center;
   gap: var(--spacing-md);
+  flex: 1 1 auto;
+  min-width: 0;
+  white-space: nowrap;
+}
+
+/* The header is one fixed-height row: nothing in it may wrap or be squeezed, whichever persona is picked. */
+.ingame-master-header { gap: var(--spacing-md); }
+.ingame-fixture-label { overflow: hidden; text-overflow: ellipsis; min-width: 0; }
+.ingame-tab-indicator-badge { white-space: nowrap; flex-shrink: 0; }
+.ingame-scoreboard-pill { flex-shrink: 0; white-space: nowrap; }
+.ingame-header-controls {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  flex-wrap: nowrap;
+  flex-shrink: 0;
+  white-space: nowrap;
+}
+
+/* Make room on narrower screens by dropping the least important text first. */
+@media (max-width: 1700px) { .ingame-fixture-label { display: none; } }
+@media (max-width: 1450px) { .ingame-tab-indicator-badge { display: none; } }
+@media (max-width: 1250px) {
+  .ingame-master-header { overflow-x: auto; }
+  .ingame-master-brand { flex: 0 0 auto; }
 }
 
 .ingame-tab-indicator-badge {

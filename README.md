@@ -2,9 +2,21 @@
 
 **An AI insights engine for live football: it reads match tracking data as it happens, explains why each moment matters, and tells that story differently for every viewer, in English and Spanish.**
 
+**Live demo (no sign-in needed): https://app-ingame-kkubzmbwg2t4c.greensand-a835732b.eastus.azurecontainerapps.io/**
+
 Built for the Microsoft "Inside the Game" hackathon. **Target prizes:** Grand Prize and **Best Use of Microsoft Foundry Project**. **Platform:** web application for desktop browsers (Chrome or Edge), Python 3.12 backend, React 18 frontend; runs locally, in Docker, or on Azure Container Apps.
 
 > **Data notice:** every club, player, match and number in this project is synthetic. The two clubs (Northbridge Lions and Harbourside City) and all players are fictional. Nothing here is an official feed or refers to a real person or organisation.
+
+## Try it
+
+1. Open the live demo: https://app-ingame-kkubzmbwg2t4c.greensand-a835732b.eastus.azurecontainerapps.io/
+2. Press **Play** (top of the match tab). Everyone shares one match, so if it is already running, you can press **Reset** and then Play to start it from kick-off. The match lasts 94:30 and the speed buttons (2x, 5x, 10x, 20x) make it quicker.
+3. Pick a persona in the top bar (Casual, Tactical, Club, Fantasy) and a language (EN or ES): every tab follows it.
+4. Open the **Tactics** tab for replays of the key moments, **Players** for heatmaps, passing lanes and radar, **Recap** for the highlights video, and use the chat bubble (bottom right of the match tab) to ask the Match Analyst about the match as it stands.
+5. `/api/llm/status` on the same address shows the live status: Microsoft Foundry connected, the Cosmos DB store and the Agent Framework workflow.
+
+The app is deployed from this repository by GitHub Actions to Azure Container Apps on every push to `main`.
 
 ## Pitch
 

@@ -447,7 +447,7 @@ export const App: React.FC = () => {
                 INGAME STUDIO
               </span>
               <span style={{ color: 'var(--color-text-tertiary)', fontSize: '12px' }}>|</span>
-              <span style={{ fontSize: '12px', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
+              <span className="ingame-fixture-label" style={{ fontSize: '12px', color: 'var(--color-text-secondary)', fontWeight: 600 }}>
                 Northbridge Lions vs Harbourside City
               </span>
             </div>
@@ -503,7 +503,7 @@ export const App: React.FC = () => {
           </div>
 
           {/* Right: Persona (applies to every tab), Language Selector & Live Latency */}
-          <div style={{ display: 'flex', alignItems: 'center', gap: 'var(--spacing-md)', flexWrap: 'wrap' }}>
+          <div className="ingame-header-controls">
             <PersonaSwitcher persona={persona} favoriteClub={favoriteClub} onSelectPersona={setPersona} onSelectClub={handleSelectClub} />
             <LanguageSelector currentLanguage={language} onSelectLanguage={setLanguage} />
             <div
