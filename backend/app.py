@@ -2,6 +2,9 @@
 
 Broadcasting 25Hz tracking telemetry, synchronized event triggers,
 real-time tactical metrics, and verified 4-agent match insights.
+
+Every viewer (browser tab) has its own match: see ``backend/sessions.py``. A request that carries no
+session id uses the default shared match, which is what API clients and external feeds use.
 """
 
 import asyncio
@@ -11,7 +14,7 @@ import logging
 import os
 import time
 from contextlib import asynccontextmanager
-from typing import Any, Dict, List, Optional, Set, Union
+from typing import Any, Dict, List, Optional, Union
 from jsonschema import Draft7Validator
 
 from fastapi import Depends, FastAPI, Request, WebSocket, WebSocketDisconnect, HTTPException
@@ -31,6 +34,12 @@ from backend import moments as moments_lib
 from backend import story as story_lib
 from backend.agents.tactician_agent import TacticianAgent
 from backend.math_engine import MatchAnalyticsTracker
+from backend.sessions import (
+    FULL_TIME_SECONDS,
+    MatchSession,
+    SessionLimitReached,
+    SessionRegistry,
+)
 from generator.telemetry_streamer import TelemetryStreamer
 
 # Setup logging
@@ -62,92 +71,91 @@ class BatchEventsPayload(BaseModel):
     events: List[Dict[str, Any]]
 
 
-class ConnectionManager:
-    """Manages active broadcast WebSocket connections with slow-client protection."""
-
-    def __init__(self):
-        self.active_connections: Set[WebSocket] = set()
-
-    async def connect(self, websocket: WebSocket) -> bool:
-        """Accepts the client unless the server is full. Returns False when it refused."""
-        if len(self.active_connections) >= security.MAX_WEBSOCKET_CLIENTS:
-            await websocket.close(code=1013)  # try again later
-            return False
-        await websocket.accept()
-        self.active_connections.add(websocket)
-        logger.info(f"WebSocket client connected. Total clients: {len(self.active_connections)}")
-        return True
-
-    def disconnect(self, websocket: WebSocket) -> None:
-        self.active_connections.discard(websocket)
-        logger.info(f"WebSocket client disconnected. Total clients: {len(self.active_connections)}")
-
-    async def broadcast(self, payload: Dict[str, Any]) -> None:
-        """Broadcasts a JSON payload to all connected clients."""
-        if not self.active_connections:
-            return
-
-        dead_connections = set()
-        msg_str = json.dumps(payload)
-        for connection in self.active_connections:
-            try:
-                await connection.send_text(msg_str)
-            except Exception as e:
-                logger.warning(f"Error sending frame to client, queuing removal: {e}")
-                dead_connections.add(connection)
-
-        for dead in dead_connections:
-            self.disconnect(dead)
-
-
-# Global server singletons
-manager = ConnectionManager()
-streamer: Optional[TelemetryStreamer] = None
+# Server-wide singletons. The match itself lives in a per-viewer MatchSession.
+registry: Optional[SessionRegistry] = None
 orchestrator: Optional[MatchIntelligenceOrchestrator] = None
+janitor_task: Optional[asyncio.Task] = None
+# The default shared match (used when a request carries no session id). Kept as module names for
+# API clients and tests that talk to "the" match.
+streamer: Optional[TelemetryStreamer] = None
 analytics_tracker: Optional[MatchAnalyticsTracker] = None
-background_stream_task: Optional[asyncio.Task] = None
-latest_insight: Optional[Dict[str, Any]] = None
-latest_frame: Optional[Dict[str, Any]] = None
-latest_recap: Optional[Dict[str, Any]] = None
-last_triggered_event_id: Optional[str] = None
 
 
-FULL_TIME_SECONDS = 5670  # 94:30 - the match ends here; nothing is generated after it
+def _make_session(session_id: str) -> MatchSession:
+    """A fresh match for one viewer: its own seeded simulation and analytics."""
+    events_file = settings.synthetic_events_file
+    if events_file and not os.path.isabs(events_file):
+        events_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", events_file))
+    session_streamer = TelemetryStreamer(
+        match_id="IGS_2026_NBL_HSC",
+        frame_rate=settings.fps,
+        real_time=True,
+        events_file=events_file,
+        seed=settings.simulation_seed,
+    )
+    return MatchSession(session_id, session_streamer, MatchAnalyticsTracker())
 
 
-def _full_time_frame() -> int:
-    return int(FULL_TIME_SECONDS * (streamer.frame_rate if streamer else 25))
+def _default_session() -> Optional[MatchSession]:
+    return registry.default if registry else None
 
 
-def _match_is_over() -> bool:
-    return bool(streamer) and streamer.generator.frame_index >= _full_time_frame()
+def _match_is_over(session: Optional[MatchSession] = None) -> bool:
+    session = session or _default_session()
+    return bool(session) and session.is_over()
 
 
-def _reset_match_state() -> None:
-    """Back to kick-off: simulation, analytics and every cached live value."""
-    global last_triggered_event_id, latest_insight, latest_frame, latest_recap
-    streamer.reset()
-    if analytics_tracker:
-        analytics_tracker.reset()
-    last_triggered_event_id = None
-    latest_frame = None
-    latest_insight = None
-    latest_recap = None
+def _reset_match_state(session: Optional[MatchSession] = None) -> None:
+    """Back to kick-off for one viewer's match (the default match when none is given)."""
+    (session or _default_session()).reset()
 
 
-async def _restart_if_match_over() -> bool:
+async def _restart_if_match_over(session: MatchSession) -> bool:
     """Pressing Play after full time starts a new run of the match from kick-off."""
-    if not _match_is_over():
+    if not session.is_over():
         return False
-    _reset_match_state()
-    await manager.broadcast({"type": "control", "timestamp": "00:00", "data": {"action": "reset"}})
+    session.reset()
+    await session.manager.broadcast({"type": "control", "timestamp": "00:00", "data": {"action": "reset"}})
     return True
 
 
-async def broadcast_loop():
-    """Background 25Hz streaming worker loop with adaptive frame stepping."""
-    global latest_frame, latest_insight, last_triggered_event_id
-    logger.info("Starting InGame 25Hz broadcast loop...")
+def _ensure_loop(session: MatchSession) -> None:
+    """Starts the session's 25 Hz streaming loop if it is not running."""
+    if session.task is None or session.task.done():
+        session.task = asyncio.get_running_loop().create_task(session_loop(session))
+
+
+def _lookup_session(session_id: Optional[str]) -> MatchSession:
+    """The session for an id (created on first use); the default match when there is no id."""
+    if registry is None:
+        raise RuntimeError("server is starting")
+    if not session_id:
+        session = registry.default
+    else:
+        if not registry.is_valid_id(session_id):
+            raise ValueError("Invalid session id")
+        session = registry.get_or_create(session_id)
+    session.touch()
+    _ensure_loop(session)
+    return session
+
+
+async def get_session(request: Request) -> MatchSession:
+    """Request dependency: the caller's own match, identified by the X-Session-Id header."""
+    try:
+        return _lookup_session(request.headers.get("x-session-id"))
+    except ValueError:
+        raise HTTPException(status_code=400, detail="Invalid X-Session-Id header")
+    except SessionLimitReached:
+        raise HTTPException(status_code=503, detail="The studio is busy with too many viewers. Please try again in a few minutes.")
+    except RuntimeError:
+        raise HTTPException(status_code=503, detail="The studio is starting. Please try again in a moment.")
+
+
+async def session_loop(session: MatchSession):
+    """Background 25Hz streaming worker for one viewer's match, with adaptive frame stepping."""
+    logger.info("Starting 25Hz broadcast loop for session %s", session.id[:8])
+    streamer = session.streamer
 
     try:
         while True:
@@ -157,7 +165,7 @@ async def broadcast_loop():
 
             t_start = time.perf_counter()
             # Never step past full time, whatever the playback speed.
-            steps = min(streamer.get_steps_for_tick(), max(0, _full_time_frame() - streamer.generator.frame_index))
+            steps = min(streamer.get_steps_for_tick(), max(0, session.full_time_frame - streamer.generator.frame_index))
             if steps <= 0:
                 streamer.pause()
                 continue
@@ -166,20 +174,18 @@ async def broadcast_loop():
             # Advance simulation by K frames per broadcast tick and ingest into analytics
             for _ in range(steps):
                 frame = streamer.generator.step()
-                if analytics_tracker:
-                    analytics_tracker.add_telemetry_frame(frame)
-                    pending_alerts = analytics_tracker.pop_pending_alerts()
-                    for alert in pending_alerts:
-                        await manager.broadcast({
-                            "type": "metric_alert",
-                            "timestamp": frame.get("timestamp") if frame else "00:00",
-                            "data": alert,
-                        })
+                session.tracker.add_telemetry_frame(frame)
+                for alert in session.tracker.pop_pending_alerts():
+                    await session.manager.broadcast({
+                        "type": "metric_alert",
+                        "timestamp": frame.get("timestamp") if frame else "00:00",
+                        "data": alert,
+                    })
 
                 # Detect key event triggers in intermediate frames
                 active_evt_id = frame.get("active_event_id")
-                if active_evt_id and active_evt_id != last_triggered_event_id:
-                    last_triggered_event_id = active_evt_id
+                if active_evt_id and active_evt_id != session.last_triggered_event_id:
+                    session.last_triggered_event_id = active_evt_id
                     # Events are created by the simulation as actions happen,
                     # so resolve against its current event list rather than a
                     # startup-time snapshot.
@@ -188,9 +194,7 @@ async def broadcast_loop():
                         None,
                     )
                     if event_data:
-                        milestone = None
-                        if analytics_tracker:
-                            milestone = analytics_tracker.record_event(event_data)
+                        milestone = session.tracker.record_event(event_data)
                         if milestone:
                             event_data = dict(event_data)
                             event_data["milestone"] = milestone
@@ -201,15 +205,15 @@ async def broadcast_loop():
                                 telemetry_frame=frame,
                             )
                             insight_dict = insight.model_dump()
-                            latest_insight = insight_dict
+                            session.latest_insight = insight_dict
 
                             # Broadcast event and insight messages
-                            await manager.broadcast({
+                            await session.manager.broadcast({
                                 "type": "event",
                                 "timestamp": frame.get("timestamp"),
                                 "data": event_data,
                             })
-                            await manager.broadcast({
+                            await session.manager.broadcast({
                                 "type": "insight",
                                 "timestamp": frame.get("timestamp"),
                                 "data": insight_dict,
@@ -217,22 +221,22 @@ async def broadcast_loop():
                         except Exception as err:
                             logger.error(f"Error processing event through multi-agent workflow: {err}")
 
-            latest_frame = frame
+            session.latest_frame = frame
 
             # Broadcast 25Hz telemetry frame
             if frame is not None:
-                await manager.broadcast({
+                await session.manager.broadcast({
                     "type": "telemetry",
                     "timestamp": frame.get("timestamp"),
                     "data": frame,
                 })
 
-            if _match_is_over():
+            if session.is_over():
                 # Full time: stop here. The final frame stays on screen until Play restarts the match.
                 streamer.pause()
                 if frame is not None:
                     frame["ball"] = dict(frame.get("ball") or {}, status="stopped")
-                await manager.broadcast({
+                await session.manager.broadcast({
                     "type": "control",
                     "timestamp": frame.get("timestamp") if frame else "00:00",
                     "data": {"action": "full_time", "clock": frame.get("clock") if frame else "94:30"},
@@ -245,42 +249,50 @@ async def broadcast_loop():
             await asyncio.sleep(sleep_time)
 
     except asyncio.CancelledError:
-        logger.info("Broadcast loop cancelled.")
+        logger.info("Broadcast loop for session %s cancelled.", session.id[:8])
     except Exception as e:
         logger.error(f"Fatal error in broadcast loop: {e}", exc_info=True)
+
+
+async def _janitor():
+    """Removes the matches of viewers who left."""
+    try:
+        while True:
+            await asyncio.sleep(60)
+            removed = registry.cleanup_idle() if registry else 0
+            if removed:
+                logger.info("Removed %d idle match session(s)", removed)
+    except asyncio.CancelledError:
+        pass
 
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
     """FastAPI startup and shutdown lifecycle manager."""
-    global streamer, orchestrator, analytics_tracker, background_stream_task
+    global registry, streamer, orchestrator, analytics_tracker, janitor_task
 
     logger.info("Initializing InGame Studio services...")
-    events_file = settings.synthetic_events_file
-    if events_file and not os.path.isabs(events_file):
-        events_file = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", events_file))
-
-    streamer = TelemetryStreamer(
-        match_id="IGS_2026_NBL_HSC",
-        frame_rate=settings.fps,
-        real_time=True,
-        events_file=events_file,
-        seed=settings.simulation_seed,
-    )
     orchestrator = MatchIntelligenceOrchestrator()
-    analytics_tracker = MatchAnalyticsTracker()
+    registry = SessionRegistry(_make_session)
+    streamer = registry.default.streamer
+    analytics_tracker = registry.default.tracker
 
     # Match events are emitted as the deterministic simulation runs. There is
     # no pre-authored first event to process at startup.
-
-    background_stream_task = asyncio.create_task(broadcast_loop())
+    _ensure_loop(registry.default)
+    janitor_task = asyncio.create_task(_janitor())
     yield
 
     # Teardown
-    if background_stream_task:
-        background_stream_task.cancel()
+    for session in registry.all_sessions():
+        if session.task:
+            session.task.cancel()
+    tasks = [s.task for s in registry.all_sessions() if s.task] + ([janitor_task] if janitor_task else [])
+    if janitor_task:
+        janitor_task.cancel()
+    for task in tasks:
         try:
-            await background_stream_task
+            await task
         except asyncio.CancelledError:
             pass
     if orchestrator:
@@ -302,7 +314,7 @@ app.add_middleware(
     allow_origins=security.cors_origins(),
     allow_credentials=False,
     allow_methods=["GET", "POST", "OPTIONS"],
-    allow_headers=["Content-Type", "X-API-Key"],
+    allow_headers=["Content-Type", "X-API-Key", "X-Session-Id"],
 )
 
 
@@ -336,90 +348,89 @@ async def get_llm_status():
 
 
 @app.get("/api/status")
-async def get_status():
-    """Returns real-time match studio status."""
-    frame_index = streamer.generator.frame_index if streamer else 0
-    clock = streamer.generator.get_clock_string() if streamer else "00:00"
+async def get_status(session: MatchSession = Depends(get_session)):
+    """Returns real-time match studio status for the caller's match."""
+    generator = session.streamer.generator
     return {
-        "match_id": streamer.match_id if streamer else "IGS_2026_NBL_HSC",
-        "frame_index": frame_index,
-        "clock": clock,
-        "is_paused": streamer.is_paused if streamer else False,
-        "speed_multiplier": streamer.speed_multiplier if streamer else 1.0,
-        "connected_clients": len(manager.active_connections),
-        "has_insight": latest_insight is not None,
-        "latest_event_id": last_triggered_event_id,
+        "match_id": session.streamer.match_id,
+        "frame_index": generator.frame_index,
+        "clock": generator.get_clock_string(),
+        "is_paused": session.streamer.is_paused,
+        "speed_multiplier": session.streamer.speed_multiplier,
+        "connected_clients": len(session.manager.active_connections),
+        "active_matches": (registry.count() + 1) if registry else 1,
+        "has_insight": session.latest_insight is not None,
+        "latest_event_id": session.last_triggered_event_id,
     }
 
 
-def _get_current_frame() -> Dict[str, Any]:
+def _get_current_frame(session: MatchSession) -> Dict[str, Any]:
     """Retrieves or builds the current 25Hz telemetry frame."""
-    global latest_frame
-    if latest_frame is not None:
-        return latest_frame
-    if streamer:
-        ball_state, player_states = streamer.generator.export_state()
-        return {
-            "frame_id": streamer.generator.frame_index,
-            "match_id": streamer.match_id,
-            "data_provenance": streamer.generator.data_provenance,
-            "synthetic_data_notice": "Synthetic demonstration data. This fictional scenario does not represent a real match or real tracking feed.",
-            "timestamp": streamer.generator.get_timestamp_string(),
-            "period": streamer.generator.period,
-            "clock": streamer.generator.get_clock_string(),
-            "pitch_dimensions": {"length": 105.0, "width": 68.0},
-            "ball": ball_state,
-            "players": player_states,
-            "active_event_id": streamer.generator.active_event_id,
-        }
-    return {}
+    if session.latest_frame is not None:
+        return session.latest_frame
+    streamer = session.streamer
+    ball_state, player_states = streamer.generator.export_state()
+    return {
+        "frame_id": streamer.generator.frame_index,
+        "match_id": streamer.match_id,
+        "data_provenance": streamer.generator.data_provenance,
+        "synthetic_data_notice": "Synthetic demonstration data. This fictional scenario does not represent a real match or real tracking feed.",
+        "timestamp": streamer.generator.get_timestamp_string(),
+        "period": streamer.generator.period,
+        "clock": streamer.generator.get_clock_string(),
+        "pitch_dimensions": {"length": 105.0, "width": 68.0},
+        "ball": ball_state,
+        "players": player_states,
+        "active_event_id": streamer.generator.active_event_id,
+    }
 
 
 @app.get("/api/state")
-async def get_state():
+async def get_state(session: MatchSession = Depends(get_session)):
     """Returns a full state snapshot for the live match dashboard."""
-    curr_frame = _get_current_frame()
-    clock = curr_frame.get("clock") or (streamer.generator.get_clock_string() if streamer else "00:00")
-    period = curr_frame.get("period") or (streamer.generator.period if streamer else 1)
-    stats = analytics_tracker.get_match_stats() if analytics_tracker else {}
+    curr_frame = _get_current_frame(session)
+    streamer = session.streamer
+    clock = curr_frame.get("clock") or streamer.generator.get_clock_string()
+    period = curr_frame.get("period") or streamer.generator.period
+    stats = session.tracker.get_match_stats()
     score = stats.get("score", {"home": 0, "away": 0})
     return {
-        "match_id": streamer.match_id if streamer else "IGS_2026_NBL_HSC",
+        "match_id": streamer.match_id,
         "clock": clock,
         "period": period,
-        "is_paused": streamer.is_paused if streamer else False,
-        "speed_multiplier": streamer.speed_multiplier if streamer else 1.0,
+        "is_paused": streamer.is_paused,
+        "speed_multiplier": streamer.speed_multiplier,
         "score": score,
         "frame": curr_frame,
         "match_stats": stats,
-        "latest_insight": latest_insight,
+        "latest_insight": session.latest_insight,
     }
 
 
 @app.post("/api/control")
-async def post_control(cmd: ControlCommand):
-    """Controls studio playback (play, pause, reset, trigger, speed, jump, simulate_full)."""
-    global last_triggered_event_id, latest_insight, latest_frame, latest_recap
+async def post_control(cmd: ControlCommand, session: MatchSession = Depends(get_session)):
+    """Controls the caller's own playback (play, pause, reset, trigger, speed, jump, simulate_full)."""
+    streamer = session.streamer
     action = cmd.action.lower()
 
     if action in ("play", "resume"):
-        restarted = await _restart_if_match_over()
+        restarted = await _restart_if_match_over(session)
         streamer.resume()
         return {"status": "resumed", "is_paused": False, "restarted": restarted}
     elif action == "pause":
         streamer.pause()
         return {"status": "paused", "is_paused": True}
     elif action == "reset":
-        _reset_match_state()
+        session.reset()
         return {"status": "reset", "frame_index": 0}
     elif action == "speed":
         if cmd.multiplier is None or cmd.multiplier <= 0:
             raise HTTPException(status_code=400, detail="Invalid multiplier, must be positive float")
         new_speed = streamer.set_speed(cmd.multiplier)
-        clock = streamer.generator.get_clock_string() if streamer else "00:00"
-        await manager.broadcast({
+        clock = streamer.generator.get_clock_string()
+        await session.manager.broadcast({
             "type": "control",
-            "timestamp": latest_frame.get("timestamp") if latest_frame else "00:00",
+            "timestamp": session.latest_frame.get("timestamp") if session.latest_frame else "00:00",
             "data": {"action": "speed", "multiplier": new_speed, "clock": clock},
         })
         return {"status": "ok", "action": "speed", "multiplier": new_speed}
@@ -433,18 +444,17 @@ async def post_control(cmd: ControlCommand):
             raise HTTPException(status_code=404, detail=f"Event {cmd.event_id} not found")
 
         frame = streamer.jump_to_event(event_data, known_events)
-        latest_frame = frame
-        last_triggered_event_id = cmd.event_id
-        if analytics_tracker:
-            analytics_tracker.seek_to_event(event_data)
-            analytics_tracker.record_event(event_data)
+        session.latest_frame = frame
+        session.last_triggered_event_id = cmd.event_id
+        session.tracker.seek_to_event(event_data)
+        session.tracker.record_event(event_data)
 
         insight = await asyncio.to_thread(
             orchestrator.process_event, event_data, telemetry_frame=frame, allow_live=True
         )
-        latest_insight = insight.model_dump()
+        session.latest_insight = insight.model_dump()
 
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "jump",
             "timestamp": frame.get("timestamp"),
             "data": {
@@ -453,17 +463,17 @@ async def post_control(cmd: ControlCommand):
                 "frame_index": frame.get("frame_id"),
             },
         })
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "event",
             "timestamp": frame.get("timestamp"),
             "data": event_data,
         })
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "insight",
             "timestamp": frame.get("timestamp"),
-            "data": latest_insight,
+            "data": session.latest_insight,
         })
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "telemetry",
             "timestamp": frame.get("timestamp"),
             "data": frame,
@@ -473,7 +483,7 @@ async def post_control(cmd: ControlCommand):
             "event_id": cmd.event_id,
             "clock": frame.get("clock"),
             "frame_index": frame.get("frame_id"),
-            "insight": latest_insight,
+            "insight": session.latest_insight,
         }
     elif action == "simulate_full":
         streamer.pause()
@@ -497,28 +507,23 @@ async def post_control(cmd: ControlCommand):
                 cached_snapshot = None
                 cached_events = None
 
-        if analytics_tracker:
-            analytics_tracker.reset()
+        session.tracker.reset()
         if cached_snapshot and cached_events is not None:
             frame = streamer.simulate_full_match(
                 snapshot=cached_snapshot.get("final_frame"),
                 events=cached_events,
             )
-            if analytics_tracker:
-                analytics_tracker.load_snapshot(
-                    events=cached_events,
-                    match_stats=cached_snapshot.get("match_stats", {}),
-                    player_stats=cached_snapshot.get("player_stats", []),
-                )
-        else:
-            frame = streamer.simulate_full_match(
-                on_frame=analytics_tracker.add_telemetry_frame if analytics_tracker else None
+            session.tracker.load_snapshot(
+                events=cached_events,
+                match_stats=cached_snapshot.get("match_stats", {}),
+                player_stats=cached_snapshot.get("player_stats", []),
             )
-            if analytics_tracker:
-                for event in streamer.generator.get_events():
-                    analytics_tracker.record_event(event)
+        else:
+            frame = streamer.simulate_full_match(on_frame=session.tracker.add_telemetry_frame)
+            for event in streamer.generator.get_events():
+                session.tracker.record_event(event)
 
-        latest_frame = frame
+        session.latest_frame = frame
         all_events = streamer.generator.get_events()
 
         # Refresh the commentary so it describes the final whistle, not the first minutes.
@@ -531,39 +536,39 @@ async def post_control(cmd: ControlCommand):
                 closing_insight = await asyncio.to_thread(
                     orchestrator.process_event, closing_event, telemetry_frame=frame
                 )
-                latest_insight = closing_insight.model_dump()
-                last_triggered_event_id = closing_event.get("event_id")
-                await manager.broadcast({
+                session.latest_insight = closing_insight.model_dump()
+                session.last_triggered_event_id = closing_event.get("event_id")
+                await session.manager.broadcast({
                     "type": "insight",
                     "timestamp": frame.get("timestamp"),
-                    "data": latest_insight,
+                    "data": session.latest_insight,
                 })
             except Exception as err:
                 logger.warning(f"Could not build closing insight: {err}")
 
-        recap = generate_match_recap(analytics_tracker, events=all_events)
+        recap = generate_match_recap(session.tracker, events=all_events)
         recap["status"] = "FT"
         recap["clock"] = frame.get("clock", "94:30")
-        latest_recap = recap
+        session.latest_recap = recap
 
-        match_stats = analytics_tracker.get_match_stats() if analytics_tracker else {}
-        player_stats = analytics_tracker.get_all_player_stats() if analytics_tracker else []
+        match_stats = session.tracker.get_match_stats()
+        player_stats = session.tracker.get_all_player_stats()
 
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "simulate_full",
             "timestamp": frame.get("timestamp"),
             "data": {
                 "clock": frame.get("clock", "94:30"),
                 "frame_index": frame.get("frame_id"),
-                "score": analytics_tracker.get_match_stats().get("score", {"home": 0, "away": 0}) if analytics_tracker else {"home": 0, "away": 0},
+                "score": match_stats.get("score", {"home": 0, "away": 0}),
             },
         })
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "recap",
             "timestamp": frame.get("clock", "94:30"),
             "data": recap,
         })
-        await manager.broadcast({
+        await session.manager.broadcast({
             "type": "telemetry",
             "timestamp": frame.get("timestamp"),
             "data": frame,
@@ -584,53 +589,42 @@ async def post_control(cmd: ControlCommand):
             raise HTTPException(status_code=404, detail=f"Event {cmd.event_id} not found")
 
         streamer.generator._apply_event_trigger(event_data)
-        milestone = None
-        if analytics_tracker:
-            milestone = analytics_tracker.record_event(event_data)
+        milestone = session.tracker.record_event(event_data)
         if milestone:
             event_data = dict(event_data)
             event_data["milestone"] = milestone
         insight = await asyncio.to_thread(
-            orchestrator.process_event, event_data, telemetry_frame=latest_frame, allow_live=True
+            orchestrator.process_event, event_data, telemetry_frame=session.latest_frame, allow_live=True
         )
-        latest_insight = insight.model_dump()
-        last_triggered_event_id = cmd.event_id
+        session.latest_insight = insight.model_dump()
+        session.last_triggered_event_id = cmd.event_id
 
-        await manager.broadcast({
-            "type": "event",
-            "timestamp": latest_frame.get("timestamp") if latest_frame else "00:00",
-            "data": event_data,
-        })
-        await manager.broadcast({
-            "type": "insight",
-            "timestamp": latest_frame.get("timestamp") if latest_frame else "00:00",
-            "data": latest_insight,
-        })
-        return {"status": "triggered", "event_id": cmd.event_id, "insight": latest_insight}
+        stamp = session.latest_frame.get("timestamp") if session.latest_frame else "00:00"
+        await session.manager.broadcast({"type": "event", "timestamp": stamp, "data": event_data})
+        await session.manager.broadcast({"type": "insight", "timestamp": stamp, "data": session.latest_insight})
+        return {"status": "triggered", "event_id": cmd.event_id, "insight": session.latest_insight}
     else:
         raise HTTPException(status_code=400, detail=f"Unsupported action: {cmd.action}")
 
 
 @app.post("/api/simulate_full")
-async def post_simulate_full():
+async def post_simulate_full(session: MatchSession = Depends(get_session)):
     """Direct alias to simulate_full control action."""
-    return await post_control(ControlCommand(action="simulate_full"))
+    return await post_control(ControlCommand(action="simulate_full"), session)
 
 
 @app.get("/api/alerts")
-async def get_alerts():
+async def get_alerts(session: MatchSession = Depends(get_session)):
     """Returns all detected physical threshold and tactical metric alerts."""
-    if not analytics_tracker:
-        return []
-    return analytics_tracker.get_all_alerts()
+    return session.tracker.get_all_alerts()
 
 
 @app.get("/api/insights/latest")
-async def get_latest_insight():
+async def get_latest_insight(session: MatchSession = Depends(get_session)):
     """Returns the most recent verified insight."""
-    if not latest_insight:
+    if not session.latest_insight:
         return JSONResponse(status_code=204, content=None)
-    return latest_insight
+    return session.latest_insight
 
 
 def _validate_match_event(event_dict: Dict[str, Any], prefix: str = "") -> None:
@@ -650,61 +644,49 @@ def _validate_match_event(event_dict: Dict[str, Any], prefix: str = "") -> None:
 
 
 @app.get("/api/recap")
-async def get_recap():
+async def get_recap(session: MatchSession = Depends(get_session)):
     """Returns the current match report; it becomes a full-time recap at 94:30."""
-    global latest_recap
-    all_events = streamer.generator.get_events() if streamer else None
-    current_clock = (
-        latest_frame.get("clock") if latest_frame
-        else streamer.generator.get_clock_string() if streamer
-        else "00:00"
-    )
-    recap = generate_match_recap(analytics_tracker, events=all_events, clock=current_clock)
-    is_full_time = bool(
-        streamer
-        and streamer.generator.frame_index >= int(5670 * streamer.frame_rate)
-    )
-    recap["status"] = "FT" if is_full_time else "LIVE" if streamer and streamer.generator.frame_index else "NOT_STARTED"
-    recap["highlights"] = await asyncio.to_thread(_get_highlights)
-    latest_recap = recap
+    generator = session.streamer.generator
+    all_events = generator.get_events()
+    current_clock = session.latest_frame.get("clock") if session.latest_frame else generator.get_clock_string()
+    recap = generate_match_recap(session.tracker, events=all_events, clock=current_clock)
+    recap["status"] = "FT" if session.is_over() else "LIVE" if generator.frame_index else "NOT_STARTED"
+    recap["highlights"] = await asyncio.to_thread(_get_highlights, session)
+    session.latest_recap = recap
     return recap
 
 
+async def _publish(session: MatchSession, event: Dict[str, Any], insight: Optional[Dict[str, Any]]) -> None:
+    """Sends an ingested event (and its insight) to the viewers of the session."""
+    stamp = event.get("clock") or (session.latest_frame.get("timestamp") if session.latest_frame else "00:00")
+    await session.manager.broadcast({"type": "event", "timestamp": stamp, "data": event})
+    if insight:
+        await session.manager.broadcast({"type": "insight", "timestamp": stamp, "data": insight})
+
+
 @app.post("/api/ingest", dependencies=[Depends(security.require_ingest_key)])
-async def post_ingest(event: Dict[str, Any]):
-    """Accepts and ingests a single external MatchEvent conforming to data/schema.json."""
-    global latest_insight, last_triggered_event_id
+async def post_ingest(event: Dict[str, Any], session: MatchSession = Depends(get_session)):
+    """Accepts and ingests a single external MatchEvent conforming to data/schema.json.
+
+    It goes into the default shared match unless an X-Session-Id header names another one.
+    """
     _validate_match_event(event)
 
-    milestone = None
-    if analytics_tracker:
-        milestone = analytics_tracker.record_event(event)
+    milestone = session.tracker.record_event(event)
     if milestone:
         event = dict(event)
         event["milestone"] = milestone
 
-    insight_dict = {}
+    insight_dict: Dict[str, Any] = {}
     if orchestrator:
         insight = await asyncio.to_thread(
-            orchestrator.process_event, event, telemetry_frame=latest_frame, allow_live=True
+            orchestrator.process_event, event, telemetry_frame=session.latest_frame, allow_live=True
         )
         insight_dict = insight.model_dump()
-        latest_insight = insight_dict
-        last_triggered_event_id = event.get("event_id")
+        session.latest_insight = insight_dict
+        session.last_triggered_event_id = event.get("event_id")
 
-    clock_ts = event.get("clock") or (latest_frame.get("timestamp") if latest_frame else "00:00")
-    await manager.broadcast({
-        "type": "event",
-        "timestamp": clock_ts,
-        "data": event,
-    })
-    if insight_dict:
-        await manager.broadcast({
-            "type": "insight",
-            "timestamp": clock_ts,
-            "data": insight_dict,
-        })
-
+    await _publish(session, event, insight_dict)
     return {
         "status": "ingested",
         "event_id": event.get("event_id"),
@@ -713,9 +695,11 @@ async def post_ingest(event: Dict[str, Any]):
 
 
 @app.post("/api/events", dependencies=[Depends(security.require_ingest_key)])
-async def post_events(payload: Union[BatchEventsPayload, Dict[str, Any], List[Dict[str, Any]]]):
+async def post_events(
+    payload: Union[BatchEventsPayload, Dict[str, Any], List[Dict[str, Any]]],
+    session: MatchSession = Depends(get_session),
+):
     """Accepts a batch of MatchEvents conforming to data/schema.json and ingests them sequentially."""
-    global latest_insight, last_triggered_event_id
     if isinstance(payload, BatchEventsPayload):
         events_list = payload.events
     elif isinstance(payload, dict):
@@ -740,32 +724,19 @@ async def post_events(payload: Union[BatchEventsPayload, Dict[str, Any], List[Di
 
     # Ingest events sequentially
     for ev in events_list:
-        milestone = None
-        if analytics_tracker:
-            milestone = analytics_tracker.record_event(ev)
+        milestone = session.tracker.record_event(ev)
         if milestone:
             ev = dict(ev)
             ev["milestone"] = milestone
 
         if orchestrator:
             insight = await asyncio.to_thread(
-                orchestrator.process_event, ev, telemetry_frame=latest_frame, allow_live=True
+                orchestrator.process_event, ev, telemetry_frame=session.latest_frame, allow_live=True
             )
-            latest_insight = insight.model_dump()
-            last_triggered_event_id = ev.get("event_id")
+            session.latest_insight = insight.model_dump()
+            session.last_triggered_event_id = ev.get("event_id")
 
-        clock_ts = ev.get("clock") or (latest_frame.get("timestamp") if latest_frame else "00:00")
-        await manager.broadcast({
-            "type": "event",
-            "timestamp": clock_ts,
-            "data": ev,
-        })
-        if latest_insight:
-            await manager.broadcast({
-                "type": "insight",
-                "timestamp": clock_ts,
-                "data": latest_insight,
-            })
+        await _publish(session, ev, session.latest_insight)
 
     return {
         "status": "batch_ingested",
@@ -774,38 +745,23 @@ async def post_events(payload: Union[BatchEventsPayload, Dict[str, Any], List[Di
 
 
 @app.get("/api/events")
-async def get_events():
-    """Returns all calibrated synthetic match events."""
-    if not streamer:
-        return []
-    return streamer.generator.get_events()
+async def get_events(session: MatchSession = Depends(get_session)):
+    """Returns the match events played so far in the caller's match."""
+    return session.streamer.generator.get_events()
 
 
 @app.get("/api/analytics")
-async def get_analytics():
+async def get_analytics(session: MatchSession = Depends(get_session)):
     """Returns 22-player and match statistics."""
-    if not analytics_tracker:
-        return {"match_stats": {}, "player_stats": []}
     return {
-        "match_stats": analytics_tracker.get_match_stats(),
-        "player_stats": analytics_tracker.get_all_player_stats(),
+        "match_stats": session.tracker.get_match_stats(),
+        "player_stats": session.tracker.get_all_player_stats(),
     }
 
 
-def _load_all_match_events() -> List[Dict[str, Any]]:
-    """Events played so far in the running simulation (falls back to the exported default-seed file)."""
-    if streamer:
-        live_events = streamer.generator.get_events()
-        if live_events:
-            return live_events
-    events_path = os.path.join(os.path.dirname(__file__), "..", "data", "synthetic_events.json")
-    if settings.synthetic_events_file is None and not streamer and os.path.isfile(events_path):
-        try:
-            with open(events_path, "r", encoding="utf-8") as f:
-                return json.load(f)
-        except Exception:
-            pass
-    return []
+def _load_all_match_events(session: MatchSession) -> List[Dict[str, Any]]:
+    """Events played so far in the caller's simulation (never events from the future)."""
+    return session.streamer.generator.get_events()
 
 
 def _compute_player_radar(p_stats: Dict[str, Any]) -> List[Dict[str, Any]]:
@@ -888,37 +844,37 @@ def _build_player_profile(
         "events": player_events,
     }
 
-
-def _squad_with_used_substitutes(starters: List[Dict[str, Any]], bench: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
+def _squad_with_used_substitutes(session: MatchSession, starters: List[Dict[str, Any]], bench: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     """Starting eleven plus any substitute who has come on so far."""
-    used = analytics_tracker.players if analytics_tracker else {}
+    used = session.tracker.players
     return list(starters) + [p for p in bench if p["player_id"] in used]
 
 
 @app.get("/api/players")
-async def get_players():
+async def get_players(session: MatchSession = Depends(get_session)):
     """Returns the rosters for Northbridge Lions and Harbourside City (starters and used substitutes) with full player profiles."""
     from generator.match_generator import NORTHBRIDGE_BENCH, NORTHBRIDGE_ROSTER, AWAY_BENCH, AWAY_ROSTER
 
-    all_events = _load_all_match_events()
+    tracker = session.tracker
+    all_events = _load_all_match_events(session)
     home_profiles = []
     away_profiles = []
     all_profiles = []
 
-    for p in _squad_with_used_substitutes(NORTHBRIDGE_ROSTER, NORTHBRIDGE_BENCH):
+    for p in _squad_with_used_substitutes(session, NORTHBRIDGE_ROSTER, NORTHBRIDGE_BENCH):
         pid = p["player_id"]
-        stats = analytics_tracker.get_player_stats(pid) if analytics_tracker else {}
-        if not stats and analytics_tracker and pid in analytics_tracker.players:
-            stats = analytics_tracker.players[pid].to_dict()
+        stats = tracker.get_player_stats(pid)
+        if not stats and pid in tracker.players:
+            stats = tracker.players[pid].to_dict()
         profile = _build_player_profile(pid, {**p, "team": "home"}, stats or {}, all_events)
         home_profiles.append(profile)
         all_profiles.append(profile)
 
-    for p in _squad_with_used_substitutes(AWAY_ROSTER, AWAY_BENCH):
+    for p in _squad_with_used_substitutes(session, AWAY_ROSTER, AWAY_BENCH):
         pid = p["player_id"]
-        stats = analytics_tracker.get_player_stats(pid) if analytics_tracker else {}
-        if not stats and analytics_tracker and pid in analytics_tracker.players:
-            stats = analytics_tracker.players[pid].to_dict()
+        stats = tracker.get_player_stats(pid)
+        if not stats and pid in tracker.players:
+            stats = tracker.players[pid].to_dict()
         profile = _build_player_profile(pid, {**p, "team": "away"}, stats or {}, all_events)
         away_profiles.append(profile)
         all_profiles.append(profile)
@@ -945,7 +901,7 @@ async def get_players():
 
 
 @app.get("/api/players/{player_id}")
-async def get_player_by_id(player_id: str):
+async def get_player_by_id(player_id: str, session: MatchSession = Depends(get_session)):
     """Returns detailed individual player analytics, radar, heatmap, and events feed."""
     from generator.match_generator import NORTHBRIDGE_BENCH, NORTHBRIDGE_ROSTER, AWAY_BENCH, AWAY_ROSTER
 
@@ -967,17 +923,12 @@ async def get_player_by_id(player_id: str):
         raise HTTPException(status_code=404, detail=f"Player '{player_id}' not found")
 
     pid = target_p["player_id"]
-    all_events = _load_all_match_events()
-    stats = analytics_tracker.get_player_stats(pid) if analytics_tracker else {}
-    if not stats and analytics_tracker and pid in analytics_tracker.players:
-        stats = analytics_tracker.players[pid].to_dict()
+    all_events = _load_all_match_events(session)
+    stats = session.tracker.get_player_stats(pid)
+    if not stats and pid in session.tracker.players:
+        stats = session.tracker.players[pid].to_dict()
 
     return _build_player_profile(pid, {**target_p, "team": team_side}, stats or {}, all_events)
-
-
-_moments_cache: Dict[str, Any] = {"key": None, "moments": []}
-_highlights_cache: Dict[str, Any] = {"key": None, "highlights": []}
-_derived_lock = threading.Lock()
 
 
 def _events_signature(events: List[Dict[str, Any]]) -> str:
@@ -995,40 +946,40 @@ def _cached_narrative_for(event: Dict[str, Any]) -> Optional[str]:
         return None
 
 
-def _get_tactical_moments(language: str = "en") -> List[Dict[str, Any]]:
+def _get_tactical_moments(session: MatchSession, language: str = "en") -> List[Dict[str, Any]]:
     """Key turning points from the events played so far, explained in the requested language.
 
     Blocking (may call the model); the model text is cached per moment, persona and language.
     """
-    events = streamer.generator.get_events() if streamer else []
+    events = session.streamer.generator.get_events()
     key = f"{_events_signature(events)}:{language}"
     service = orchestrator.narrative_service if orchestrator else None
-    with _derived_lock:
-        if _moments_cache["key"] == key:
-            return _moments_cache["moments"]
+    with session.derived_lock:
+        if session.moments_cache["key"] == key:
+            return session.moments_cache["moments"]
         moments = moments_lib.build_tactical_moments(
             events,
             explain=lambda moment, ev: story_lib.analyse_moment(moment, ev, service, language),
         )
-        _moments_cache.update(key=key, moments=moments)
+        session.moments_cache.update(key=key, moments=moments)
         return moments
 
 
-def _get_highlights() -> List[Dict[str, Any]]:
-    events = streamer.generator.get_events() if streamer else []
+def _get_highlights(session: MatchSession) -> List[Dict[str, Any]]:
+    events = session.streamer.generator.get_events()
     signature = _events_signature(events)
-    with _derived_lock:
-        if _highlights_cache["key"] == signature:
-            return _highlights_cache["highlights"]
+    with session.derived_lock:
+        if session.highlights_cache["key"] == signature:
+            return session.highlights_cache["highlights"]
         highlights = moments_lib.build_highlights(events, narrative_lookup=_cached_narrative_for)
-        _highlights_cache.update(key=signature, highlights=highlights)
+        session.highlights_cache.update(key=signature, highlights=highlights)
         return highlights
 
 
 @app.get("/api/tactical")
-async def get_tactical(language: str = "en"):
+async def get_tactical(language: str = "en", session: MatchSession = Depends(get_session)):
     """Returns key turning points with freeze-frame coordinates and spatial layer overlays."""
-    moments = await asyncio.to_thread(_get_tactical_moments, language)
+    moments = await asyncio.to_thread(_get_tactical_moments, session, language)
     return {"moments": moments}
 
 
@@ -1036,13 +987,16 @@ clip_store = ClipStore()
 
 
 @app.get("/api/clips/{event_id}")
-async def get_clip(event_id: str):
-    """Replay clip (10 s before and after an event). 202 while a missing clip is being recorded."""
-    seed = streamer.seed if streamer else settings.simulation_seed
+async def get_clip(event_id: str, session: MatchSession = Depends(get_session)):
+    """Replay clip (10 s before and after an event). 202 while a missing clip is being recorded.
+
+    Clips are shared by every viewer: all matches play the same seed, so a clip is valid for all of them.
+    """
+    seed = session.streamer.seed
     clip = clip_store.get(event_id, seed)
     if clip is not None:
         return clip
-    status = await asyncio.to_thread(lambda: clip_store.request(seed, _load_all_match_events(), event_id))
+    status = await asyncio.to_thread(lambda: clip_store.request(seed, _load_all_match_events(session), event_id))
     if status == "ready":
         return clip_store.get(event_id, seed)
     if status == "unknown":
@@ -1062,88 +1016,103 @@ _analyst_client_limit = security.RateLimiter(limit=12, window=60.0)
 _analyst_global_limit = security.RateLimiter(limit=90, window=60.0)
 
 
-_analyst = None
-_analyst_lock = threading.Lock()
-
-
-def _live_match() -> Dict[str, Any]:
-    """The match exactly as it stands now: the live tracker, the events so far, the clock and status."""
-    clock = (
-        latest_frame.get("clock") if latest_frame
-        else streamer.generator.get_clock_string() if streamer
-        else "00:00"
-    )
-    frame_index = streamer.generator.frame_index if streamer else 0
-    if not frame_index:
+def _live_match(session: MatchSession) -> Dict[str, Any]:
+    """One viewer's match exactly as it stands now: the live tracker, the events so far, the clock and status."""
+    generator = session.streamer.generator
+    clock = session.latest_frame.get("clock") if session.latest_frame else generator.get_clock_string()
+    if not generator.frame_index:
         status = "NOT_STARTED"
-    elif _match_is_over():
+    elif session.is_over():
         status = "FT"
     else:
         status = "LIVE"
-    stats = analytics_tracker.get_match_stats() if analytics_tracker else {}
+    stats = session.tracker.get_match_stats()
     return {
-        "tracker": analytics_tracker,
-        "events": streamer.generator.get_events() if streamer else [],
+        "tracker": session.tracker,
+        "events": generator.get_events(),
         "clock": clock,
         "status": status,
         "score": stats.get("score", {"home": 0, "away": 0}),
     }
 
 
-def _get_analyst():
-    """The Match Analyst agent (Agent Framework + MCP tools), created on first use."""
-    global _analyst
-    with _analyst_lock:
-        if _analyst is None:
+def _get_analyst(session: MatchSession):
+    """The Match Analyst agent (Agent Framework + MCP tools) for this viewer's match, created on first use."""
+    with session.analyst_lock:
+        if session.analyst is None:
             from backend.agents.analyst_agent import MatchAnalystAgent
             from backend.mcp_server import InGameMCPServer
             from generator.match_generator import AWAY_BENCH, AWAY_ROSTER, NORTHBRIDGE_BENCH, NORTHBRIDGE_ROSTER
 
             rosters = [dict(p, team="Northbridge Lions") for p in NORTHBRIDGE_ROSTER + NORTHBRIDGE_BENCH]
             rosters += [dict(p, team="Harbourside City") for p in AWAY_ROSTER + AWAY_BENCH]
-            _analyst = MatchAnalystAgent(
-                InGameMCPServer(live_source=_live_match), rosters=rosters, live_context=_live_match,
+            session.analyst = MatchAnalystAgent(
+                InGameMCPServer(live_source=lambda: _live_match(session)),
+                rosters=rosters,
+                live_context=lambda: _live_match(session),
             )
-        return _analyst
+        return session.analyst
 
 
 @app.post("/api/analyst/ask")
-async def ask_analyst(body: AnalystQuestion, request: Request):
+async def ask_analyst(body: AnalystQuestion, request: Request, session: MatchSession = Depends(get_session)):
     """Answers a viewer's question with an Agent Framework agent that calls the MCP analytics tools.
 
-    The agent sees the match as it stands at the current clock (not the whole match), answers in the
-    viewer's persona (and, for the club persona, as a fan of the chosen club), and the answer is
-    verified against the tool results. The response lists the tools the agent used.
+    The agent sees the viewer's own match as it stands at the current clock (not the whole match),
+    answers in the viewer's persona (and, for the club persona, as a fan of the chosen club), and the
+    answer is verified against the tool results. The response lists the tools the agent used.
     """
     if not (
         _analyst_client_limit.allow(security.client_id(request)) and _analyst_global_limit.allow("all")
     ):
         raise HTTPException(status_code=429, detail="Too many questions. Please wait a moment and try again.")
-    analyst = await asyncio.to_thread(_get_analyst)
+    analyst = await asyncio.to_thread(_get_analyst, session)
     return await asyncio.to_thread(analyst.ask, body.question, body.language, body.persona, body.club)
 
 
 @app.get("/api/story")
-async def get_story(persona: str = "tactical", language: str = "en", club: str = "Northbridge Lions"):
+async def get_story(persona: str = "tactical", language: str = "en", club: str = "Northbridge Lions",
+                    session: MatchSession = Depends(get_session)):
     """Match story for a persona and language, written by the model and cached."""
-    recap_payload = await get_recap()
+    recap_payload = await get_recap(session)
     service = orchestrator.narrative_service if orchestrator else None
     return await asyncio.to_thread(story_lib.generate_story, recap_payload, persona, language, club, service)
 
 
 @app.websocket("/ws/match-stream")
 async def websocket_match_stream(websocket: WebSocket):
-    """Primary WebSocket stream delivering 25Hz telemetry and tactical insights."""
-    if not await manager.connect(websocket):
+    """Primary WebSocket stream delivering 25Hz telemetry and tactical insights for the caller's match.
+
+    The viewer's session id comes in the query string (``?session=...``); without one the socket joins
+    the default shared match.
+    """
+    try:
+        session = _lookup_session(websocket.query_params.get("session"))
+    except ValueError:
+        await websocket.close(code=1008)  # policy violation: bad session id
+        return
+    except (SessionLimitReached, RuntimeError):
+        await websocket.close(code=1013)  # try again later
+        return
+    if registry.total_connections() >= security.MAX_WEBSOCKET_CLIENTS:
+        await websocket.close(code=1013)
         return
 
+    await session.manager.connect(websocket)
+    logger.info("WebSocket client connected to session %s. Clients: %d", session.id[:8], len(session.manager.active_connections))
+    streamer = session.streamer
+    if session.paused_by_disconnect:
+        # The viewer reloaded or came back: carry on where their match was playing.
+        session.paused_by_disconnect = False
+        streamer.resume()
+
     # Immediately push latest insight on connect so UI populates without waiting for next event
-    if latest_insight:
+    if session.latest_insight:
         try:
             await websocket.send_text(json.dumps({
                 "type": "insight",
-                "timestamp": latest_frame.get("timestamp") if latest_frame else "00:00",
-                "data": latest_insight,
+                "timestamp": session.latest_frame.get("timestamp") if session.latest_frame else "00:00",
+                "data": session.latest_insight,
             }))
         except Exception:
             pass
@@ -1152,6 +1121,7 @@ async def websocket_match_stream(websocket: WebSocket):
         while True:
             # Handle incoming client messages (heartbeat pings, playback commands)
             text = await websocket.receive_text()
+            session.touch()
             if len(text) > security.MAX_WEBSOCKET_MESSAGE_BYTES:
                 await websocket.close(code=1009)  # message too big
                 break
@@ -1173,10 +1143,10 @@ async def websocket_match_stream(websocket: WebSocket):
                     if action == "pause":
                         streamer.pause()
                     elif action == "play":
-                        await _restart_if_match_over()
+                        await _restart_if_match_over(session)
                         streamer.resume()
                     elif action == "reset":
-                        _reset_match_state()
+                        session.reset()
                     elif action == "speed":
                         mult = msg.get("multiplier", 1.0)
                         try:
@@ -1190,10 +1160,16 @@ async def websocket_match_stream(websocket: WebSocket):
                 pass
 
     except WebSocketDisconnect:
-        manager.disconnect(websocket)
+        pass
     except Exception as e:
         logger.warning(f"WebSocket client error: {e}")
-        manager.disconnect(websocket)
+    finally:
+        session.manager.disconnect(websocket)
+        logger.info("WebSocket client left session %s. Clients: %d", session.id[:8], len(session.manager.active_connections))
+        # A viewer's own match does not keep running with nobody watching.
+        if not session.is_default and not session.manager.active_connections and not streamer.is_paused:
+            streamer.pause()
+            session.paused_by_disconnect = True
 
 
 # Mount static frontend build if directory exists

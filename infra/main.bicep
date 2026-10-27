@@ -21,10 +21,10 @@ param containerImage string = 'mcr.microsoft.com/azuredocs/aci-helloworld:latest
 param targetPort int = 8000
 
 @description('CPU cores allocated to the container app.')
-param cpuCore string = '0.5'
+param cpuCore string = '1.0'
 
 @description('Memory allocated to the container app.')
-param memorySize string = '1.0Gi'
+param memorySize string = '2.0Gi'
 
 @description('Azure AI Foundry endpoint, for example https://<resource>.services.ai.azure.com. Leave empty to run on the local engine.')
 param foundryEndpoint string = ''
@@ -193,8 +193,10 @@ resource containerApp 'Microsoft.App/containerApps@2024-03-01' = {
         }
       ]
       scale: {
-        // The narrative cache is shared through Cosmos DB, but the running match is still held in
-        // memory per instance, so two replicas would show different matches. Keep one replica.
+        // The narrative cache is shared through Cosmos DB. Each viewer's match is held in memory on one
+        // instance, and one CPU core runs about 100 viewer-times-playback-speed units of simulation
+        // (for example 30 viewers at normal speed). To scale out, add replicas AND turn on sticky sessions
+        // in the ingress so each viewer keeps reaching the instance that holds their match.
         minReplicas: 1
         maxReplicas: 1
       }

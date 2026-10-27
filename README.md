@@ -11,7 +11,7 @@ Built for the Microsoft "Inside the Game" hackathon. **Target prizes:** Grand Pr
 ## Try it
 
 1. Open the live demo: https://app-ingame-kkubzmbwg2t4c.greensand-a835732b.eastus.azurecontainerapps.io/
-2. Press **Play** (top of the match tab). Everyone shares one match, so if it is already running, you can press **Reset** and then Play to start it from kick-off. The match lasts 94:30 and the speed buttons (2x, 5x, 10x, 20x) make it quicker.
+2. Your match starts from kick-off as soon as the page opens, and it is **yours alone**: every browser tab gets its own match, so Play, Pause, Reset and the speed buttons (2x, 5x, 10x, 20x) never affect anyone else. Reloading the page continues your match. It lasts 94:30; pressing Play after full time restarts it.
 3. Pick a persona in the top bar (Casual, Tactical, Club, Fantasy) and a language (EN or ES): every tab follows it.
 4. Open the **Tactics** tab for replays of the key moments, **Players** for heatmaps, passing lanes and radar, **Recap** for the highlights video, and use the chat bubble (bottom right of the match tab) to ask the Match Analyst about the match as it stands.
 5. `/api/llm/status` on the same address shows the live status: Microsoft Foundry connected, the Cosmos DB store and the Agent Framework workflow.
@@ -89,7 +89,7 @@ Everything the UI renders arrives as JSON over `/ws/match-stream`, so another re
 
 ## What is implemented
 
-- A Python FastAPI service with REST endpoints and a WebSocket match stream; the match ends at 94:30 and pressing Play afterwards restarts it.
+- A Python FastAPI service with REST endpoints and a WebSocket match stream. **Each viewer has their own match** (their own clock, play state, score and analytics, plus their own analyst context), identified by a random session id the browser keeps in `sessionStorage` and sends as the `X-Session-Id` header and `?session=` on the WebSocket (`backend/sessions.py`). The model's cached answers, the replay clips and the data files are shared, because every match plays the same seed. A request without an id uses one default shared match, which is where external event feeds (`/api/ingest`) land. The match ends at 94:30 and pressing Play afterwards restarts it.
 - A seeded simulator. Events are emitted at the frame where each action happens, from the same state as the tracking data. Event types: `pass`, `shot`, `goal`, `tackle` (won and lost), `turnover`, `pressure`, `foul`, `card`, `substitution`. **Possession changes** are the events with `tactical_metrics.possession_change = true` (interceptions are `turnover`, won tackles are `tackle`). Teams change ends at half-time; substitutes and sent-off players join and leave the pitch.
 - Analytics: possession, pass accuracy and difficulty, speed and distance thresholds, expected threat, territory, field tilt, control vs chaos, heatmaps, passing lanes, shot map, a percentile-ranked six-axis radar and player ratings.
 - Real-time intelligence: player name tags, sprint and ball-speed alerts, distance and pass-count milestones.
@@ -147,7 +147,7 @@ Open the URL printed by Vite.
 
 ## Deploy to Azure Container Apps
 
-`infra/main.bicep` creates the registry, a Log Analytics workspace, the Container Apps environment and one container app (one replica, because match state and the cache are in memory). The workflow `.github/workflows/deploy-azure.yml` deploys it after the tests pass. Add these repository secrets: `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_RESOURCE_GROUP`, `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_KEY`, `COSMOS_ENDPOINT`, `COSMOS_KEY`. Without them the deploy job skips itself. The Bicep has been written to the current schemas but has not been run against a subscription from this repository yet.
+`infra/main.bicep` creates the registry, a Log Analytics workspace, the Container Apps environment and one container app (1 CPU, 2 GB, one replica, because each viewer's match lives in that instance's memory; scaling out needs sticky sessions). The workflow `.github/workflows/deploy-azure.yml` deploys it after the tests pass. Add these repository secrets: `AZURE_CLIENT_ID`, `AZURE_TENANT_ID`, `AZURE_SUBSCRIPTION_ID`, `AZURE_RESOURCE_GROUP`, `AZURE_OPENAI_ENDPOINT`, `AZURE_OPENAI_API_KEY`, `COSMOS_ENDPOINT`, `COSMOS_KEY`. Without them the deploy job skips itself. The Bicep has been written to the current schemas but has not been run against a subscription from this repository yet.
 
 ## Use the MCP tools
 
@@ -171,7 +171,7 @@ The simulator uses simplified decision and movement rules; it is not a physics r
 
 ## Verification
 
-`python run_all_tests.py` runs the backend suite offline (`tests/conftest.py` sets `INGAME_LLM=off`, so no test calls Azure). Last run: 392 passed. `cd frontend; npm run build` builds with zero TypeScript errors.
+`python run_all_tests.py` runs the backend suite offline (`tests/conftest.py` sets `INGAME_LLM=off`, so no test calls Azure). Last run: 415 passed. `cd frontend; npm run build` builds with zero TypeScript errors.
 
 ## Security
 
@@ -179,7 +179,8 @@ The simulator uses simplified decision and movement rules; it is not a physics r
 - **Writing events:** set `INGAME_API_KEY` and `POST /api/ingest` and `/api/events` then require a matching `X-API-Key` header (batches are capped at 500 events). Unset, they stay open for local development.
 - **Cost control:** the Match Analyst is limited to 12 questions a minute per client and 90 in total, questions are capped at 400 characters, and all model calls share the 150k tokens-per-minute budget.
 - **Browser access:** CORS allows only the local dev server (or the origins in `INGAME_CORS_ORIGINS`, never a wildcard); responses carry `nosniff`, `X-Frame-Options` and a referrer policy; WebSocket clients and message sizes are capped.
-- **Known limits:** playback control (`/api/control`) is open because the demo has one shared match; production would add sign-in and per-viewer playback. The model's text is verified against the data but a user question can still try to steer the analyst's wording (it has read-only tools and its numbers are checked).
+- **Per-viewer matches:** playback control only affects the caller's own match. Sessions are capped at 40, idle ones are removed after 15 minutes, and a viewer's match pauses when their browser disconnects.
+- **Known limits:** there is no sign-in. One CPU core runs roughly 100 viewer-times-playback-speed units of simulation (measured: 30 viewers at normal speed, 20 at 5x or 10 at 10x); beyond that the matches slow down rather than fail. Sessions live in the memory of one instance, so scaling out needs more replicas together with sticky sessions. The model's text is verified against the data but a user question can still try to steer the analyst's wording (it has read-only tools and its numbers are checked).
 - Report vulnerabilities as described in [SECURITY.md](SECURITY.md).
 
 ## Licence and conduct

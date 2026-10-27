@@ -3,6 +3,7 @@
  */
 
 import { TelemetryFrame, MatchEvent, VerifiedInsight, MetricAlert } from '../types';
+import { getSessionId } from './session';
 
 export type MessageHandler = {
   onTelemetry?: (frame: TelemetryFrame) => void;
@@ -28,7 +29,8 @@ export class StudioStreamService {
     } else {
       const protocol = window.location.protocol === 'https:' ? 'wss:' : 'ws:';
       const host = window.location.host || 'localhost:8000';
-      this.url = `${protocol}//${host}/ws/match-stream`;
+      // The session id gives this viewer their own match on the server.
+      this.url = `${protocol}//${host}/ws/match-stream?session=${encodeURIComponent(getSessionId())}`;
     }
   }
 

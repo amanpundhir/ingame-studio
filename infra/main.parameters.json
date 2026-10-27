@@ -12,10 +12,10 @@
       "value": 8000
     },
     "cpuCore": {
-      "value": "0.5"
+      "value": "1.0"
     },
     "memorySize": {
-      "value": "1.0Gi"
+      "value": "2.0Gi"
     },
     "foundryDeployment": {
       "value": "gpt-4.1-mini"
