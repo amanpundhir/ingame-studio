@@ -1,10 +1,23 @@
 name: Build, Verify and Deploy InGame Studio to Azure
 
 on:
+  # A push that changes only documentation (README, other .md files, the licence) does not run the
+  # pipeline, so the live app is not rebuilt or restarted. Any change to code, data, tests,
+  # infrastructure or the workflow itself does. "Run workflow" on the Actions page always works.
   push:
     branches: [ main ]
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.vscode/**'
   pull_request:
     branches: [ main ]
+    paths-ignore:
+      - '**/*.md'
+      - 'LICENSE'
+      - '.gitignore'
+      - '.vscode/**'
   workflow_dispatch:
 
 # Least privilege: jobs get read-only access to the repository by default.
