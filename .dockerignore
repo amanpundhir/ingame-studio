@@ -1,0 +1,15 @@
+.git
+.github
+.agents
+.venv
+node_modules
+frontend/node_modules
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache
+tests
+*.md
+.env
+.env.*

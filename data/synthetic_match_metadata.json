@@ -1,0 +1,38 @@
+{
+  "match_id": "IGS_2026_NBL_HSC",
+  "data_provenance": "synthetic_simulation",
+  "synthetic_data_notice": "Fictional, rule-based simulation. It is not a real match or tracking feed; club and player labels are illustrative.",
+  "simulation_seed": 2036,
+  "simulation_version": 1,
+  "frame_rate_hz": 25,
+  "duration_seconds": 5670,
+  "duration_clock": "94:30",
+  "pitch_dimensions_m": {
+    "length": 105.0,
+    "width": 68.0
+  },
+  "periods": [
+    {
+      "period": 1,
+      "start_seconds": 0,
+      "end_seconds": 2700
+    },
+    {
+      "period": 2,
+      "start_seconds": 2700,
+      "end_seconds": 5670
+    }
+  ],
+  "teams": [
+    {
+      "team_id": "home",
+      "display_name": "Northbridge Lions",
+      "player_count": 11
+    },
+    {
+      "team_id": "away",
+      "display_name": "Harbourside City",
+      "player_count": 11
+    }
+  ]
+}

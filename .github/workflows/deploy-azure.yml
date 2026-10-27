@@ -1,0 +1,128 @@
+name: Build, Verify and Deploy InGame Studio to Azure
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
+
+# Least privilege: jobs get read-only access to the repository by default.
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Test & Build Verification
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Python Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Run Automated Test Suite
+        run: |
+          python run_all_tests.py
+
+      - name: Set up Node.js 20.x
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20.x"
+          cache: "npm"
+          cache-dependency-path: frontend/package-lock.json
+
+      - name: Verify Frontend Compilation
+        run: |
+          cd frontend
+          npm ci
+          npm run build
+
+      - name: Validate Azure Bicep Syntax
+        run: |
+          az bicep build --file infra/main.bicep
+
+  deploy:
+    name: Package & Deploy to Azure
+    needs: verify
+    # Runs only on main, and only when the Azure secrets below have been added to the repository.
+    if: github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch')
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write   # only the deploy job may request the Azure sign-in token
+    env:
+      AZURE_CLIENT_ID: ${{ secrets.AZURE_CLIENT_ID }}
+      AZURE_RESOURCE_GROUP: ${{ secrets.AZURE_RESOURCE_GROUP }}
+      # Secrets go in through the environment, never pasted into the shell command text.
+      FOUNDRY_ENDPOINT: ${{ secrets.AZURE_OPENAI_ENDPOINT }}
+      FOUNDRY_API_KEY: ${{ secrets.AZURE_OPENAI_API_KEY }}
+      COSMOS_ENDPOINT: ${{ secrets.COSMOS_ENDPOINT }}
+      COSMOS_KEY: ${{ secrets.COSMOS_KEY }}
+      INGEST_API_KEY: ${{ secrets.INGAME_API_KEY }}
+    steps:
+      - name: Check Azure secrets are configured
+        run: |
+          if [ -z "$AZURE_CLIENT_ID" ] || [ -z "$AZURE_RESOURCE_GROUP" ]; then
+            echo "::warning::AZURE_CLIENT_ID / AZURE_RESOURCE_GROUP secrets are not set; skipping deployment."
+            echo "SKIP_DEPLOY=true" >> "$GITHUB_ENV"
+          fi
+
+      - name: Checkout Code
+        if: env.SKIP_DEPLOY != 'true'
+        uses: actions/checkout@v4
+
+      - name: Azure Login (OIDC)
+        if: env.SKIP_DEPLOY != 'true'
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+      - name: Deploy infrastructure (registry, environment, app)
+        if: env.SKIP_DEPLOY != 'true'
+        run: |
+          az deployment group create \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --name ingame-infra \
+            --template-file infra/main.bicep \
+            --parameters infra/main.parameters.json \
+            --parameters foundryEndpoint="$FOUNDRY_ENDPOINT" \
+                         foundryApiKey="$FOUNDRY_API_KEY" \
+                         cosmosEndpoint="$COSMOS_ENDPOINT" \
+                         cosmosKey="$COSMOS_KEY" \
+                         ingestApiKey="$INGEST_API_KEY"
+
+      - name: Read deployment outputs
+        if: env.SKIP_DEPLOY != 'true'
+        run: |
+          for name in acrLoginServer acrName containerAppName; do
+            value=$(az deployment group show --resource-group "$AZURE_RESOURCE_GROUP" --name ingame-infra \
+              --query "properties.outputs.${name}.value" -o tsv)
+            echo "${name}=${value}" >> "$GITHUB_ENV"
+          done
+
+      - name: Build and push the image
+        if: env.SKIP_DEPLOY != 'true'
+        run: |
+          az acr login --name "$acrName"
+          docker build -t "$acrLoginServer/ingame-studio:$GITHUB_SHA" .
+          docker push "$acrLoginServer/ingame-studio:$GITHUB_SHA"
+
+      - name: Point the container app at the new image
+        if: env.SKIP_DEPLOY != 'true'
+        run: |
+          az containerapp update \
+            --name "$containerAppName" \
+            --resource-group "$AZURE_RESOURCE_GROUP" \
+            --image "$acrLoginServer/ingame-studio:$GITHUB_SHA"

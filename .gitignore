@@ -1,0 +1,29 @@
+# Secrets
+.env
+.env.*
+!.env.example
+
+# Python
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+
+# Node
+node_modules/
+frontend/dist/
+
+# Agent scratch work
+.agents/
+
+# Internal build notes (not published)
+internal_notes/
+
+# Local logs
+pregen.log
+clips.log
+docker_build.log
+server.log
+
+# Local tool settings
+.claude/

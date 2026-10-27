@@ -1,0 +1,6862 @@
+{
+  "match_id": "IGS_2026_NBL_HSC",
+  "simulation_seed": 2036,
+  "data_provenance": "synthetic_simulation",
+  "final_frame": {
+    "frame_id": 141750,
+    "match_id": "IGS_2026_NBL_HSC",
+    "data_provenance": "synthetic_simulation",
+    "synthetic_data_notice": "Synthetic demonstration data. This fictional scenario does not represent a real match or real tracking feed.",
+    "timestamp": "2026-04-18T18:04:30+00:00",
+    "period": 2,
+    "clock": "94:30",
+    "pitch_dimensions": {
+      "length": 105.0,
+      "width": 68.0
+    },
+    "ball": {
+      "x": 31.22,
+      "y": 55.3,
+      "z": 0.0,
+      "vx": -3.227,
+      "vy": 0.864,
+      "vz": 0.0,
+      "speed_kmh": 12.02,
+      "possession_team": "home",
+      "possessed_by_player_id": "NBL_19",
+      "status": "stopped"
+    },
+    "players": [
+      {
+        "player_id": "NBL_01",
+        "team": "home",
+        "jersey_number": 1,
+        "name": "Daniel Roark",
+        "role": "GK",
+        "x": 88.81,
+        "y": 35.38,
+        "vx": -0.621,
+        "vy": 0.342,
+        "speed_kmh": 2.55,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_04",
+        "team": "home",
+        "jersey_number": 4,
+        "name": "Ben Whitlock",
+        "role": "DF",
+        "x": 46.75,
+        "y": 13.81,
+        "vx": -2.165,
+        "vy": 0.342,
+        "speed_kmh": 7.89,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_02",
+        "team": "home",
+        "jersey_number": 2,
+        "name": "Wilfred Sandoval",
+        "role": "DF",
+        "x": 62.17,
+        "y": 30.66,
+        "vx": -1.417,
+        "vy": 0.535,
+        "speed_kmh": 5.45,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_06",
+        "team": "home",
+        "jersey_number": 6,
+        "name": "Gabriel Marchetti",
+        "role": "DF",
+        "x": 63.6,
+        "y": 42.5,
+        "vx": -1.386,
+        "vy": 0.607,
+        "speed_kmh": 5.45,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_33",
+        "team": "home",
+        "jersey_number": 33,
+        "name": "Rico Calloway",
+        "role": "DF",
+        "x": 49.29,
+        "y": 56.04,
+        "vx": -2.038,
+        "vy": 0.531,
+        "speed_kmh": 7.58,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_23",
+        "team": "home",
+        "jersey_number": 23,
+        "name": "Mikel Maddox",
+        "role": "MF",
+        "x": 50.18,
+        "y": 38.89,
+        "vx": -1.602,
+        "vy": 0.63,
+        "speed_kmh": 6.2,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_41",
+        "team": "home",
+        "jersey_number": 41,
+        "name": "Declan Rowe",
+        "role": "MF",
+        "x": 42.52,
+        "y": 32.87,
+        "vx": -1.859,
+        "vy": 0.639,
+        "speed_kmh": 7.08,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_08",
+        "team": "home",
+        "jersey_number": 8,
+        "name": "Martin Olsvik",
+        "role": "MF",
+        "x": 35.15,
+        "y": 35.14,
+        "vx": -1.877,
+        "vy": 0.711,
+        "speed_kmh": 7.22,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_07",
+        "team": "home",
+        "jersey_number": 7,
+        "name": "Kofi Sarpong",
+        "role": "FW",
+        "x": 29.01,
+        "y": 16.3,
+        "vx": -2.084,
+        "vy": 0.414,
+        "speed_kmh": 7.65,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_09",
+        "team": "home",
+        "jersey_number": 9,
+        "name": "Jonas Jessup",
+        "role": "FW",
+        "x": 24.98,
+        "y": 36.89,
+        "vx": -2.021,
+        "vy": 0.63,
+        "speed_kmh": 7.62,
+        "is_visible": true
+      },
+      {
+        "player_id": "NBL_19",
+        "team": "home",
+        "jersey_number": 19,
+        "name": "Lars Tordal",
+        "role": "FW",
+        "x": 31.44,
+        "y": 55.33,
+        "vx": -3.2,
+        "vy": 0.855,
+        "speed_kmh": 11.92,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_31",
+        "team": "away",
+        "jersey_number": 31,
+        "name": "Enzo Barreto",
+        "role": "GK",
+        "x": 3.32,
+        "y": 35.05,
+        "vx": -0.306,
+        "vy": 0.347,
+        "speed_kmh": 1.66,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_02",
+        "team": "away",
+        "jersey_number": 2,
+        "name": "Kyle Walden",
+        "role": "DF",
+        "x": 20.22,
+        "y": 54.96,
+        "vx": -1.35,
+        "vy": 0.594,
+        "speed_kmh": 5.31,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_25",
+        "team": "away",
+        "jersey_number": 25,
+        "name": "Manuel Adeyemi",
+        "role": "DF",
+        "x": 17.68,
+        "y": 40.28,
+        "vx": -1.103,
+        "vy": 0.648,
+        "speed_kmh": 4.6,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_03",
+        "team": "away",
+        "jersey_number": 3,
+        "name": "Ruben Duarte",
+        "role": "DF",
+        "x": 17.7,
+        "y": 34.05,
+        "vx": -1.111,
+        "vy": 0.751,
+        "speed_kmh": 4.83,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_06",
+        "team": "away",
+        "jersey_number": 6,
+        "name": "Nathan Ames",
+        "role": "DF",
+        "x": 20.11,
+        "y": 18.73,
+        "vx": -1.301,
+        "vy": 0.702,
+        "speed_kmh": 5.32,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_08",
+        "team": "away",
+        "jersey_number": 8,
+        "name": "Mateo Kovar",
+        "role": "MF",
+        "x": 31.9,
+        "y": 31.08,
+        "vx": -1.206,
+        "vy": 0.738,
+        "speed_kmh": 5.09,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_20",
+        "team": "away",
+        "jersey_number": 20,
+        "name": "Bernardo Santoro",
+        "role": "MF",
+        "x": 31.88,
+        "y": 43.26,
+        "vx": -1.197,
+        "vy": 0.657,
+        "speed_kmh": 4.92,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_47",
+        "team": "away",
+        "jersey_number": 47,
+        "name": "Phil Fenton",
+        "role": "FW",
+        "x": 32.68,
+        "y": 52.65,
+        "vx": -1.561,
+        "vy": 0.54,
+        "speed_kmh": 5.95,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_09",
+        "team": "away",
+        "jersey_number": 9,
+        "name": "Anders Hagen",
+        "role": "FW",
+        "x": 42.27,
+        "y": 36.89,
+        "vx": -1.373,
+        "vy": 0.63,
+        "speed_kmh": 5.44,
+        "is_visible": true
+      },
+      {
+        "player_id": "HSC_26",
+        "team": "away",
+        "jersey_number": 26,
+        "name": "Savio Neves",
+        "role": "FW",
+        "x": 32.68,
+        "y": 20.4,
+        "vx": -1.561,
+        "vy": 0.657,
+        "speed_kmh": 6.1,
+        "is_visible": true
+      }
+    ],
+    "active_event_id": null
+  },
+  "match_stats": {
+    "possession_pct": {
+      "home": 53.6,
+      "away": 46.4
+    },
+    "xg": {
+      "home": 1.3,
+      "away": 0.75
+    },
+    "field_tilt": {
+      "home": 63.4,
+      "away": 36.6
+    },
+    "territory": {
+      "home": 57.7,
+      "away": 42.3
+    },
+    "shots": {
+      "home": {
+        "total": 7,
+        "on_target": 3,
+        "blocked": 0,
+        "off_target": 4
+      },
+      "away": {
+        "total": 8,
+        "on_target": 5,
+        "blocked": 0,
+        "off_target": 3
+      }
+    },
+    "passes": {
+      "home": {
+        "total": 579,
+        "completed": 462,
+        "accuracy_pct": 79.8
+      },
+      "away": {
+        "total": 508,
+        "completed": 384,
+        "accuracy_pct": 75.6
+      }
+    },
+    "tackles": {
+      "home": {
+        "total": 23,
+        "won": 18,
+        "won_pct": 78.3
+      },
+      "away": {
+        "total": 43,
+        "won": 26,
+        "won_pct": 60.5
+      }
+    },
+    "interceptions": {
+      "home": 131,
+      "away": 121
+    },
+    "fouls": {
+      "home": 16,
+      "away": 19
+    },
+    "cards": {
+      "home": {
+        "yellow": 3,
+        "red": 0
+      },
+      "away": {
+        "yellow": 5,
+        "red": 1
+      }
+    },
+    "corners": {
+      "home": 0,
+      "away": 0
+    },
+    "substitutions": {
+      "home": 4,
+      "away": 3
+    },
+    "chaos_index": 27.5,
+    "score": {
+      "home": 3,
+      "away": 1
+    }
+  },
+  "player_stats": [
+    {
+      "player_id": "NBL_01",
+      "name": "Daniel Roark",
+      "team": "home",
+      "jersey_number": 1,
+      "role": "GK",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 4.42,
+      "top_speed_kmh": 21.3,
+      "sprint_seconds": 0.0,
+      "passes": {
+        "total": 7,
+        "completed": 6,
+        "accuracy_pct": 85.7,
+        "avg_pdr": 35.0
+      },
+      "xt_created": 0.119,
+      "xg": 0.0,
+      "xa": 0.23,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 1,
+      "key_passes": 0,
+      "defensive_interventions": 11,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 7,
+      "rating": 9.4,
+      "is_motm": false,
+      "bps": 32,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          29225,
+          41722,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          17698,
+          35460,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3579,
+          14094,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "21.3 km/h · 0s sprinting",
+          "formattedValue": "2",
+          "raw": 21.3
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 15.5,
+          "fullMark": 100,
+          "displayValue": "6 passes · 86%",
+          "formattedValue": "16",
+          "raw": 4.923
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 50.0,
+          "fullMark": 100,
+          "displayValue": "11 interventions",
+          "formattedValue": "50",
+          "raw": 10.532
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 74.1,
+          "fullMark": 100,
+          "displayValue": "+0.12 xT · 0 key",
+          "formattedValue": "74",
+          "raw": 0.401
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 12.1,
+          "fullMark": 100,
+          "displayValue": "4.4 km",
+          "formattedValue": "12",
+          "raw": 4.232
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_04",
+      "name": "Ben Whitlock",
+      "team": "home",
+      "jersey_number": 4,
+      "role": "DF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 12.93,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 117.4,
+      "passes": {
+        "total": 20,
+        "completed": 17,
+        "accuracy_pct": 85.0,
+        "avg_pdr": 39.7
+      },
+      "xt_created": 0.263,
+      "xg": 0.0,
+      "xa": 0.07,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 6,
+      "tackles_total": 1,
+      "tackles_won": 1,
+      "tackle_won_pct": 100.0,
+      "interceptions": 5,
+      "rating": 7.2,
+      "is_motm": false,
+      "bps": 21,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2369,
+          7402,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8163,
+          25367,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2781,
+          19393,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          614,
+          15936,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          191,
+          17858,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          18,
+          19423,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          18000,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          4289,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 70.7,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 117s sprinting",
+          "formattedValue": "71",
+          "raw": 40.496
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 29.3,
+          "fullMark": 100,
+          "displayValue": "17 passes · 85%",
+          "formattedValue": "29",
+          "raw": 13.835
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 37.9,
+          "fullMark": 100,
+          "displayValue": "6 interventions",
+          "formattedValue": "38",
+          "raw": 6.223
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 53.4,
+          "fullMark": 100,
+          "displayValue": "+0.26 xT · 0 key",
+          "formattedValue": "53",
+          "raw": 0.252
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 81.0,
+          "fullMark": 100,
+          "displayValue": "12.9 km",
+          "formattedValue": "81",
+          "raw": 12.38
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_02",
+      "name": "Wilfred Sandoval",
+      "team": "home",
+      "jersey_number": 2,
+      "role": "DF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 1,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 9.06,
+      "top_speed_kmh": 35.3,
+      "sprint_seconds": 2.3,
+      "passes": {
+        "total": 13,
+        "completed": 8,
+        "accuracy_pct": 61.5,
+        "avg_pdr": 32.7
+      },
+      "xt_created": 0.164,
+      "xg": 0.0,
+      "xa": 0.04,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 3,
+      "tackles_total": 1,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 2,
+      "rating": 6.3,
+      "is_motm": false,
+      "bps": 10,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2422,
+          15977,
+          32,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3637,
+          34339,
+          1038,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          950,
+          26386,
+          2180,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          160,
+          26222,
+          3345,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          17939,
+          6136,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          955,
+          66,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 22.4,
+          "fullMark": 100,
+          "displayValue": "35.3 km/h · 2s sprinting",
+          "formattedValue": "22",
+          "raw": 35.388
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 12.1,
+          "fullMark": 100,
+          "displayValue": "8 passes · 62%",
+          "formattedValue": "12",
+          "raw": 4.711
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 6.9,
+          "fullMark": 100,
+          "displayValue": "3 interventions",
+          "formattedValue": "7",
+          "raw": 2.872
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 39.7,
+          "fullMark": 100,
+          "displayValue": "+0.16 xT · 0 key",
+          "formattedValue": "40",
+          "raw": 0.157
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 32.8,
+          "fullMark": 100,
+          "displayValue": "9.1 km",
+          "formattedValue": "33",
+          "raw": 8.674
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_06",
+      "name": "Gabriel Marchetti",
+      "team": "home",
+      "jersey_number": 6,
+      "role": "DF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 8.71,
+      "top_speed_kmh": 33.7,
+      "sprint_seconds": 1.7,
+      "passes": {
+        "total": 34,
+        "completed": 32,
+        "accuracy_pct": 94.1,
+        "avg_pdr": 31.5
+      },
+      "xt_created": 0.367,
+      "xg": 0.0,
+      "xa": 0.09,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 5,
+      "tackles_total": 3,
+      "tackles_won": 3,
+      "tackle_won_pct": 100.0,
+      "interceptions": 2,
+      "rating": 7.4,
+      "is_motm": false,
+      "bps": 22,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          22,
+          15389,
+          3387,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          767,
+          32641,
+          7447,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          3050,
+          26024,
+          2042,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2161,
+          28243,
+          302,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1587,
+          18712,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          54,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 12.1,
+          "fullMark": 100,
+          "displayValue": "33.7 km/h · 2s sprinting",
+          "formattedValue": "12",
+          "raw": 33.765
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 56.9,
+          "fullMark": 100,
+          "displayValue": "32 passes · 94%",
+          "formattedValue": "57",
+          "raw": 28.831
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 37.9,
+          "fullMark": 100,
+          "displayValue": "5 interventions",
+          "formattedValue": "38",
+          "raw": 6.223
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 63.8,
+          "fullMark": 100,
+          "displayValue": "+0.37 xT · 0 key",
+          "formattedValue": "64",
+          "raw": 0.351
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 25.9,
+          "fullMark": 100,
+          "displayValue": "8.7 km",
+          "formattedValue": "26",
+          "raw": 8.339
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_12",
+      "name": "Joris Tamblyn",
+      "team": "home",
+      "jersey_number": 12,
+      "role": "DF",
+      "minutes_played": 85,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 11.15,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 70.6,
+      "passes": {
+        "total": 26,
+        "completed": 20,
+        "accuracy_pct": 76.9,
+        "avg_pdr": 39.1
+      },
+      "xt_created": 0.306,
+      "xg": 0.0,
+      "xa": 0.08,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 4,
+      "tackles_total": 1,
+      "tackles_won": 1,
+      "tackle_won_pct": 100.0,
+      "interceptions": 3,
+      "rating": 7.0,
+      "is_motm": false,
+      "bps": 16,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5901,
+          2545,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          20227,
+          10831,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          14999,
+          6841,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          14640,
+          2274,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          16538,
+          1504,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          17007,
+          1448,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          12874,
+          654,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          482,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 56.9,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 71s sprinting",
+          "formattedValue": "57",
+          "raw": 38.99
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 39.7,
+          "fullMark": 100,
+          "displayValue": "20 passes · 77%",
+          "formattedValue": "40",
+          "raw": 16.285
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 22.4,
+          "fullMark": 100,
+          "displayValue": "4 interventions",
+          "formattedValue": "22",
+          "raw": 4.765
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 56.9,
+          "fullMark": 100,
+          "displayValue": "+0.31 xT · 0 key",
+          "formattedValue": "57",
+          "raw": 0.324
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 63.8,
+          "fullMark": 100,
+          "displayValue": "11.2 km",
+          "formattedValue": "64",
+          "raw": 11.806
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_05",
+      "name": "Tomas Pardoe",
+      "team": "home",
+      "jersey_number": 5,
+      "role": "MF",
+      "minutes_played": 78,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "fouls_committed": 8,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 8.57,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 4.1,
+      "passes": {
+        "total": 79,
+        "completed": 66,
+        "accuracy_pct": 83.5,
+        "avg_pdr": 33.5
+      },
+      "xt_created": 0.897,
+      "xg": 0.0,
+      "xa": 0.22,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 25,
+      "tackles_total": 4,
+      "tackles_won": 3,
+      "tackle_won_pct": 75.0,
+      "interceptions": 21,
+      "rating": 8.3,
+      "is_motm": false,
+      "bps": 39,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          11660,
+          4101,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          21120,
+          8353,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          17513,
+          3907,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          18875,
+          2398,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          17236,
+          4774,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5612,
+          3020,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 29.3,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 4s sprinting",
+          "formattedValue": "29",
+          "raw": 36.189
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 94.8,
+          "fullMark": 100,
+          "displayValue": "66 passes · 84%",
+          "formattedValue": "95",
+          "raw": 63.588
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 84.5,
+          "fullMark": 100,
+          "displayValue": "25 interventions",
+          "formattedValue": "84",
+          "raw": 30.577
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 98.3,
+          "fullMark": 100,
+          "displayValue": "+0.90 xT · 0 key",
+          "formattedValue": "98",
+          "raw": 1.035
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 39.7,
+          "fullMark": 100,
+          "displayValue": "8.6 km",
+          "formattedValue": "40",
+          "raw": 9.888
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_41",
+      "name": "Declan Rowe",
+      "team": "home",
+      "jersey_number": 41,
+      "role": "MF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 12.08,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 68.5,
+      "passes": {
+        "total": 73,
+        "completed": 61,
+        "accuracy_pct": 83.6,
+        "avg_pdr": 35.6
+      },
+      "xt_created": 0.594,
+      "xg": 0.0,
+      "xa": 0.15,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 8,
+      "tackles_total": 3,
+      "tackles_won": 2,
+      "tackle_won_pct": 66.7,
+      "interceptions": 5,
+      "rating": 8.4,
+      "is_motm": false,
+      "bps": 24,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1619,
+          11363,
+          2140,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3041,
+          26227,
+          4640,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1449,
+          15706,
+          2722,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1940,
+          14650,
+          1871,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1300,
+          19236,
+          1314,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          922,
+          21073,
+          1180,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          74,
+          9423,
+          24,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 53.4,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 68s sprinting",
+          "formattedValue": "53",
+          "raw": 38.623
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 77.6,
+          "fullMark": 100,
+          "displayValue": "61 passes · 84%",
+          "formattedValue": "78",
+          "raw": 48.826
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 46.6,
+          "fullMark": 100,
+          "displayValue": "8 interventions",
+          "formattedValue": "47",
+          "raw": 8.617
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 87.9,
+          "fullMark": 100,
+          "displayValue": "+0.59 xT · 0 key",
+          "formattedValue": "88",
+          "raw": 0.569
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 56.9,
+          "fullMark": 100,
+          "displayValue": "12.1 km",
+          "formattedValue": "57",
+          "raw": 11.566
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_08",
+      "name": "Martin Olsvik",
+      "team": "home",
+      "jersey_number": 8,
+      "role": "MF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 12.47,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 86.8,
+      "passes": {
+        "total": 91,
+        "completed": 77,
+        "accuracy_pct": 84.6,
+        "avg_pdr": 41.8
+      },
+      "xt_created": 0.354,
+      "xg": 0.0,
+      "xa": 0.09,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 8,
+      "tackles_total": 2,
+      "tackles_won": 1,
+      "tackle_won_pct": 50.0,
+      "interceptions": 6,
+      "rating": 8.0,
+      "is_motm": false,
+      "bps": 23,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          60,
+          529,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5179,
+          19790,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5634,
+          24925,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2410,
+          14764,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3382,
+          14745,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2030,
+          20089,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2188,
+          19597,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          804,
+          5826,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 60.3,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 87s sprinting",
+          "formattedValue": "60",
+          "raw": 39.324
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 91.4,
+          "fullMark": 100,
+          "displayValue": "77 passes · 85%",
+          "formattedValue": "91",
+          "raw": 62.37
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 43.1,
+          "fullMark": 100,
+          "displayValue": "8 interventions",
+          "formattedValue": "43",
+          "raw": 8.138
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 60.3,
+          "fullMark": 100,
+          "displayValue": "+0.35 xT · 0 key",
+          "formattedValue": "60",
+          "raw": 0.339
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 70.7,
+          "fullMark": 100,
+          "displayValue": "12.5 km",
+          "formattedValue": "71",
+          "raw": 11.939
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_07",
+      "name": "Kofi Sarpong",
+      "team": "home",
+      "jersey_number": 7,
+      "role": "FW",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 1,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 14.05,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 299.0,
+      "passes": {
+        "total": 75,
+        "completed": 55,
+        "accuracy_pct": 73.3,
+        "avg_pdr": 47.0
+      },
+      "xt_created": 0.129,
+      "xg": 0.0,
+      "xa": 0.03,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 21,
+      "tackles_total": 5,
+      "tackles_won": 4,
+      "tackle_won_pct": 80.0,
+      "interceptions": 16,
+      "rating": 7.8,
+      "is_motm": false,
+      "bps": 39,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1560,
+          647,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          16177,
+          9886,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          13592,
+          11668,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3061,
+          9459,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1547,
+          11503,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1681,
+          16395,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1159,
+          21443,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          559,
+          19816,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          1793,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 94.8,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 299s sprinting",
+          "formattedValue": "95",
+          "raw": 47.451
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 70.7,
+          "fullMark": 100,
+          "displayValue": "55 passes · 73%",
+          "formattedValue": "71",
+          "raw": 38.599
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 74.1,
+          "fullMark": 100,
+          "displayValue": "21 interventions",
+          "formattedValue": "74",
+          "raw": 22.021
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 36.2,
+          "fullMark": 100,
+          "displayValue": "+0.13 xT · 0 key",
+          "formattedValue": "36",
+          "raw": 0.124
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 91.4,
+          "fullMark": 100,
+          "displayValue": "14.1 km",
+          "formattedValue": "91",
+          "raw": 13.452
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_29",
+      "name": "Kai Halvorsen",
+      "team": "home",
+      "jersey_number": 29,
+      "role": "FW",
+      "minutes_played": 62,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 8.54,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 90.6,
+      "passes": {
+        "total": 85,
+        "completed": 60,
+        "accuracy_pct": 70.6,
+        "avg_pdr": 51.5
+      },
+      "xt_created": 0.0,
+      "xg": 0.52,
+      "xa": 0.0,
+      "shots": 4,
+      "shots_on_target": 1,
+      "goals": 1,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 36,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 36,
+      "rating": 9.0,
+      "is_motm": false,
+      "bps": 77,
+      "fantasy_bonus_points": 2,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          245,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          6373,
+          7567,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          9015,
+          11547,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4283,
+          6139,
+          6,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6292,
+          6122,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6400,
+          8101,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4518,
+          10881,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1779,
+          5063,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 77.6,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 91s sprinting",
+          "formattedValue": "78",
+          "raw": 41.261
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 91.4,
+          "fullMark": 100,
+          "displayValue": "1G · 0.52 xG",
+          "formattedValue": "91",
+          "raw": 2.076
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 87.9,
+          "fullMark": 100,
+          "displayValue": "60 passes · 71%",
+          "formattedValue": "88",
+          "raw": 61.49
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 94.8,
+          "fullMark": 100,
+          "displayValue": "36 interventions",
+          "formattedValue": "95",
+          "raw": 52.258
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "+0.00 xT · 0 key",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 84.5,
+          "fullMark": 100,
+          "displayValue": "8.5 km",
+          "formattedValue": "84",
+          "raw": 12.397
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_11",
+      "name": "Mateus Montoya",
+      "team": "home",
+      "jersey_number": 11,
+      "role": "FW",
+      "minutes_played": 66,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "fouls_committed": 3,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 10.1,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 219.4,
+      "passes": {
+        "total": 30,
+        "completed": 25,
+        "accuracy_pct": 83.3,
+        "avg_pdr": 47.4
+      },
+      "xt_created": 0.039,
+      "xg": 0.0,
+      "xa": 0.01,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 12,
+      "tackles_total": 2,
+      "tackles_won": 2,
+      "tackle_won_pct": 100.0,
+      "interceptions": 10,
+      "rating": 7.0,
+      "is_motm": false,
+      "bps": 26,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          416,
+          1120,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4796,
+          11005,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5341,
+          12229,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5131,
+          4227,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7167,
+          2202,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          12430,
+          1183,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          14621,
+          956,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          13862,
+          699,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1748,
+          14,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 98.3,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 219s sprinting",
+          "formattedValue": "98",
+          "raw": 47.967
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 53.4,
+          "fullMark": 100,
+          "displayValue": "25 passes · 83%",
+          "formattedValue": "53",
+          "raw": 28.398
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 67.2,
+          "fullMark": 100,
+          "displayValue": "12 interventions",
+          "formattedValue": "67",
+          "raw": 17.727
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 25.9,
+          "fullMark": 100,
+          "displayValue": "+0.04 xT · 0 key",
+          "formattedValue": "26",
+          "raw": 0.053
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 98.3,
+          "fullMark": 100,
+          "displayValue": "10.1 km",
+          "formattedValue": "98",
+          "raw": 13.773
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_31",
+      "name": "Enzo Barreto",
+      "team": "away",
+      "jersey_number": 31,
+      "role": "GK",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 4.23,
+      "top_speed_kmh": 22.1,
+      "sprint_seconds": 0.0,
+      "passes": {
+        "total": 4,
+        "completed": 4,
+        "accuracy_pct": 100.0,
+        "avg_pdr": 37.6
+      },
+      "xt_created": 0.074,
+      "xg": 0.0,
+      "xa": 0.62,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 3,
+      "key_passes": 0,
+      "defensive_interventions": 4,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 4,
+      "rating": 8.4,
+      "is_motm": false,
+      "bps": 31,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          54998,
+          27430,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          29441,
+          20840,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5156,
+          3901,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 5.2,
+          "fullMark": 100,
+          "displayValue": "22.1 km/h · 0s sprinting",
+          "formattedValue": "5",
+          "raw": 22.1
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 8.6,
+          "fullMark": 100,
+          "displayValue": "4 passes · 100%",
+          "formattedValue": "9",
+          "raw": 3.83
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 15.5,
+          "fullMark": 100,
+          "displayValue": "4 interventions",
+          "formattedValue": "16",
+          "raw": 3.83
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 94.8,
+          "fullMark": 100,
+          "displayValue": "+0.07 xT · 0 key",
+          "formattedValue": "95",
+          "raw": 0.933
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 8.6,
+          "fullMark": 100,
+          "displayValue": "4.2 km",
+          "formattedValue": "9",
+          "raw": 4.05
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_02",
+      "name": "Kyle Walden",
+      "team": "away",
+      "jersey_number": 2,
+      "role": "DF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 12.46,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 93.2,
+      "passes": {
+        "total": 24,
+        "completed": 20,
+        "accuracy_pct": 83.3,
+        "avg_pdr": 37.8
+      },
+      "xt_created": 0.246,
+      "xg": 0.0,
+      "xa": 0.06,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 4,
+      "tackles_total": 1,
+      "tackles_won": 1,
+      "tackle_won_pct": 100.0,
+      "interceptions": 3,
+      "rating": 6.3,
+      "is_motm": false,
+      "bps": 8,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          9004,
+          9629,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          7911,
+          28877,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          2951,
+          18564,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3022,
+          14541,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1918,
+          17053,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          1891,
+          14272,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          992,
+          9170,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          38,
+          1977,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 63.8,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 93s sprinting",
+          "formattedValue": "64",
+          "raw": 39.569
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 36.2,
+          "fullMark": 100,
+          "displayValue": "20 passes · 83%",
+          "formattedValue": "36",
+          "raw": 15.951
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 19.0,
+          "fullMark": 100,
+          "displayValue": "4 interventions",
+          "formattedValue": "19",
+          "raw": 4.309
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 46.6,
+          "fullMark": 100,
+          "displayValue": "+0.25 xT · 0 key",
+          "formattedValue": "47",
+          "raw": 0.236
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 67.2,
+          "fullMark": 100,
+          "displayValue": "12.5 km",
+          "formattedValue": "67",
+          "raw": 11.93
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_25",
+      "name": "Manuel Adeyemi",
+      "team": "away",
+      "jersey_number": 25,
+      "role": "DF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 1,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 8.47,
+      "top_speed_kmh": 34.7,
+      "sprint_seconds": 0.8,
+      "passes": {
+        "total": 17,
+        "completed": 14,
+        "accuracy_pct": 82.4,
+        "avg_pdr": 32.8
+      },
+      "xt_created": 0.182,
+      "xg": 0.0,
+      "xa": 0.05,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 3,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 3,
+      "rating": 6.0,
+      "is_motm": false,
+      "bps": 6,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          6781,
+          23762,
+          71,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2768,
+          37657,
+          913,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1403,
+          29492,
+          2331,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          100,
+          22641,
+          3082,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          9309,
+          1464,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          28,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 19.0,
+          "fullMark": 100,
+          "displayValue": "34.7 km/h · 1s sprinting",
+          "formattedValue": "19",
+          "raw": 34.731
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 22.4,
+          "fullMark": 100,
+          "displayValue": "14 passes · 82%",
+          "formattedValue": "22",
+          "raw": 11.045
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 6.9,
+          "fullMark": 100,
+          "displayValue": "3 interventions",
+          "formattedValue": "7",
+          "raw": 2.872
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 43.1,
+          "fullMark": 100,
+          "displayValue": "+0.18 xT · 0 key",
+          "formattedValue": "43",
+          "raw": 0.174
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 22.4,
+          "fullMark": 100,
+          "displayValue": "8.5 km",
+          "formattedValue": "22",
+          "raw": 8.11
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_03",
+      "name": "Ruben Duarte",
+      "team": "away",
+      "jersey_number": 3,
+      "role": "DF",
+      "minutes_played": 94,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "fouls_committed": 2,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 8.85,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 1.0,
+      "passes": {
+        "total": 38,
+        "completed": 32,
+        "accuracy_pct": 84.2,
+        "avg_pdr": 33.7
+      },
+      "xt_created": 0.436,
+      "xg": 0.0,
+      "xa": 0.11,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 11,
+      "tackles_total": 4,
+      "tackles_won": 3,
+      "tackle_won_pct": 75.0,
+      "interceptions": 7,
+      "rating": 6.8,
+      "is_motm": false,
+      "bps": 13,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          68,
+          27870,
+          2216,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1608,
+          34412,
+          3387,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4708,
+          24456,
+          1224,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          5296,
+          22342,
+          105,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2913,
+          10998,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          257,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 25.9,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 1s sprinting",
+          "formattedValue": "26",
+          "raw": 36.038
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 46.6,
+          "fullMark": 100,
+          "displayValue": "32 passes · 84%",
+          "formattedValue": "47",
+          "raw": 25.797
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 56.9,
+          "fullMark": 100,
+          "displayValue": "11 interventions",
+          "formattedValue": "57",
+          "raw": 11.968
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 77.6,
+          "fullMark": 100,
+          "displayValue": "+0.44 xT · 0 key",
+          "formattedValue": "78",
+          "raw": 0.417
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 29.3,
+          "fullMark": 100,
+          "displayValue": "8.8 km",
+          "formattedValue": "29",
+          "raw": 8.473
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_24",
+      "name": "Josip Grbic",
+      "team": "away",
+      "jersey_number": 24,
+      "role": "DF",
+      "minutes_played": 85,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 10.74,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 52.4,
+      "passes": {
+        "total": 45,
+        "completed": 38,
+        "accuracy_pct": 84.4,
+        "avg_pdr": 37.3
+      },
+      "xt_created": 0.501,
+      "xg": 0.0,
+      "xa": 0.13,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 10,
+      "tackles_total": 2,
+      "tackles_won": 2,
+      "tackle_won_pct": 100.0,
+      "interceptions": 8,
+      "rating": 7.5,
+      "is_motm": false,
+      "bps": 15,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          14011,
+          2341,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          29907,
+          4267,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          16808,
+          4429,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          17128,
+          597,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          18656,
+          144,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          13464,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          6896,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          174,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 50.0,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 52s sprinting",
+          "formattedValue": "50",
+          "raw": 38.219
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 67.2,
+          "fullMark": 100,
+          "displayValue": "38 passes · 84%",
+          "formattedValue": "67",
+          "raw": 33.959
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 53.4,
+          "fullMark": 100,
+          "displayValue": "10 interventions",
+          "formattedValue": "53",
+          "raw": 11.647
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 84.5,
+          "fullMark": 100,
+          "displayValue": "+0.50 xT · 0 key",
+          "formattedValue": "84",
+          "raw": 0.53
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 53.4,
+          "fullMark": 100,
+          "displayValue": "10.7 km",
+          "formattedValue": "53",
+          "raw": 11.372
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_16",
+      "name": "Rodrigo Vale",
+      "team": "away",
+      "jersey_number": 16,
+      "role": "MF",
+      "minutes_played": 34,
+      "yellow_cards": 2,
+      "red_cards": 1,
+      "fouls_committed": 6,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 3.44,
+      "top_speed_kmh": 30.4,
+      "sprint_seconds": 0.1,
+      "passes": {
+        "total": 39,
+        "completed": 33,
+        "accuracy_pct": 84.6,
+        "avg_pdr": 30.6
+      },
+      "xt_created": 0.257,
+      "xg": 0.0,
+      "xa": 0.06,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 16,
+      "tackles_total": 5,
+      "tackles_won": 4,
+      "tackle_won_pct": 80.0,
+      "interceptions": 11,
+      "rating": 5.5,
+      "is_motm": false,
+      "bps": 13,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          9412,
+          3569,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          7041,
+          6273,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          5923,
+          3543,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4767,
+          4963,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1872,
+          2502,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          683,
+          610,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 8.6,
+          "fullMark": 100,
+          "displayValue": "30.4 km/h · 0s sprinting",
+          "formattedValue": "9",
+          "raw": 30.411
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 98.3,
+          "fullMark": 100,
+          "displayValue": "33 passes · 85%",
+          "formattedValue": "98",
+          "raw": 73.901
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 91.4,
+          "fullMark": 100,
+          "displayValue": "16 interventions",
+          "formattedValue": "91",
+          "raw": 47.647
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 91.4,
+          "fullMark": 100,
+          "displayValue": "+0.26 xT · 0 key",
+          "formattedValue": "91",
+          "raw": 0.68
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 36.2,
+          "fullMark": 100,
+          "displayValue": "3.4 km",
+          "formattedValue": "36",
+          "raw": 9.106
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_17",
+      "name": "Karel Devos",
+      "team": "away",
+      "jersey_number": 17,
+      "role": "MF",
+      "minutes_played": 79,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 1,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 8.82,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 9.7,
+      "passes": {
+        "total": 74,
+        "completed": 56,
+        "accuracy_pct": 75.7,
+        "avg_pdr": 34.9
+      },
+      "xt_created": 0.465,
+      "xg": 0.0,
+      "xa": 0.12,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 18,
+      "tackles_total": 7,
+      "tackles_won": 5,
+      "tackle_won_pct": 71.4,
+      "interceptions": 11,
+      "rating": 8.3,
+      "is_motm": false,
+      "bps": 36,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1050,
+          3350,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          6604,
+          26614,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          4876,
+          22590,
+          2,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7108,
+          12186,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          7710,
+          11213,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          5005,
+          7796,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1385,
+          2409,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 36.2,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 10s sprinting",
+          "formattedValue": "36",
+          "raw": 36.442
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 74.1,
+          "fullMark": 100,
+          "displayValue": "56 passes · 76%",
+          "formattedValue": "74",
+          "raw": 48.295
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 81.0,
+          "fullMark": 100,
+          "displayValue": "18 interventions",
+          "formattedValue": "81",
+          "raw": 23.354
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 81.0,
+          "fullMark": 100,
+          "displayValue": "+0.47 xT · 0 key",
+          "formattedValue": "81",
+          "raw": 0.53
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 46.6,
+          "fullMark": 100,
+          "displayValue": "8.8 km",
+          "formattedValue": "47",
+          "raw": 10.048
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_20",
+      "name": "Bernardo Santoro",
+      "team": "away",
+      "jersey_number": 20,
+      "role": "MF",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 10.45,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 12.0,
+      "passes": {
+        "total": 70,
+        "completed": 60,
+        "accuracy_pct": 85.7,
+        "avg_pdr": 32.7
+      },
+      "xt_created": 0.41,
+      "xg": 0.0,
+      "xa": 0.1,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 6,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 6,
+      "rating": 8.0,
+      "is_motm": false,
+      "bps": 24,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          4442,
+          467,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          36252,
+          3454,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          26389,
+          4845,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          18213,
+          4699,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          16459,
+          6409,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          10783,
+          4894,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          3150,
+          1450,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 39.7,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 12s sprinting",
+          "formattedValue": "40",
+          "raw": 36.46
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 81.0,
+          "fullMark": 100,
+          "displayValue": "60 passes · 86%",
+          "formattedValue": "81",
+          "raw": 49.232
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 25.9,
+          "fullMark": 100,
+          "displayValue": "6 interventions",
+          "formattedValue": "26",
+          "raw": 5.745
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 70.7,
+          "fullMark": 100,
+          "displayValue": "+0.41 xT · 0 key",
+          "formattedValue": "71",
+          "raw": 0.393
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 43.1,
+          "fullMark": 100,
+          "displayValue": "10.4 km",
+          "formattedValue": "43",
+          "raw": 10.005
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_47",
+      "name": "Phil Fenton",
+      "team": "away",
+      "jersey_number": 47,
+      "role": "FW",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 13.85,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 280.4,
+      "passes": {
+        "total": 34,
+        "completed": 23,
+        "accuracy_pct": 67.6,
+        "avg_pdr": 48.9
+      },
+      "xt_created": 0.045,
+      "xg": 0.0,
+      "xa": 0.01,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 12,
+      "tackles_total": 5,
+      "tackles_won": 2,
+      "tackle_won_pct": 40.0,
+      "interceptions": 7,
+      "rating": 7.5,
+      "is_motm": false,
+      "bps": 23,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          4182,
+          672,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          31761,
+          4324,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          17734,
+          5766,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          8216,
+          4263,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          6418,
+          7206,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          7572,
+          12574,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          7225,
+          11785,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          3822,
+          7777,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          155,
+          396,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 87.9,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 280s sprinting",
+          "formattedValue": "88",
+          "raw": 46.739
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 32.8,
+          "fullMark": 100,
+          "displayValue": "23 passes · 68%",
+          "formattedValue": "33",
+          "raw": 14.886
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 60.3,
+          "fullMark": 100,
+          "displayValue": "12 interventions",
+          "formattedValue": "60",
+          "raw": 12.447
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 22.4,
+          "fullMark": 100,
+          "displayValue": "+0.04 xT · 0 key",
+          "formattedValue": "22",
+          "raw": 0.043
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 87.9,
+          "fullMark": 100,
+          "displayValue": "13.8 km",
+          "formattedValue": "88",
+          "raw": 13.261
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_09",
+      "name": "Anders Hagen",
+      "team": "away",
+      "jersey_number": 9,
+      "role": "FW",
+      "minutes_played": 94,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 5,
+      "substituted_on": false,
+      "substituted_off": false,
+      "distance_km": 12.26,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 116.8,
+      "passes": {
+        "total": 92,
+        "completed": 52,
+        "accuracy_pct": 56.5,
+        "avg_pdr": 61.4
+      },
+      "xt_created": 0.0,
+      "xg": 0.75,
+      "xa": 0.0,
+      "shots": 8,
+      "shots_on_target": 5,
+      "goals": 1,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 57,
+      "tackles_total": 13,
+      "tackles_won": 5,
+      "tackle_won_pct": 38.5,
+      "interceptions": 44,
+      "rating": 9.7,
+      "is_motm": false,
+      "bps": 100,
+      "fantasy_bonus_points": 3,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          809,
+          242,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          26992,
+          8805,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          14006,
+          14843,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          8846,
+          5986,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          11701,
+          7242,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          11857,
+          10398,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          8530,
+          7591,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2496,
+          1772,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 67.2,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 117s sprinting",
+          "formattedValue": "67",
+          "raw": 40.473
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 94.8,
+          "fullMark": 100,
+          "displayValue": "1G · 0.75 xG",
+          "formattedValue": "95",
+          "raw": 2.317
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 50.0,
+          "fullMark": 100,
+          "displayValue": "52 passes · 56%",
+          "formattedValue": "50",
+          "raw": 28.13
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 98.3,
+          "fullMark": 100,
+          "displayValue": "57 interventions",
+          "formattedValue": "98",
+          "raw": 56.968
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "+0.00 xT · 0 key",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 60.3,
+          "fullMark": 100,
+          "displayValue": "12.3 km",
+          "formattedValue": "60",
+          "raw": 11.738
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_11",
+      "name": "Jeremy Dukes",
+      "team": "away",
+      "jersey_number": 11,
+      "role": "FW",
+      "minutes_played": 62,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "fouls_committed": 2,
+      "substituted_on": false,
+      "substituted_off": true,
+      "distance_km": 9.44,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 192.6,
+      "passes": {
+        "total": 35,
+        "completed": 23,
+        "accuracy_pct": 65.7,
+        "avg_pdr": 49.0
+      },
+      "xt_created": 0.055,
+      "xg": 0.0,
+      "xa": 0.01,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 13,
+      "tackles_total": 2,
+      "tackles_won": 2,
+      "tackle_won_pct": 100.0,
+      "interceptions": 11,
+      "rating": 7.0,
+      "is_motm": false,
+      "bps": 24,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1334,
+          2395,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7525,
+          15306,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5064,
+          11504,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5955,
+          2888,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          8424,
+          1333,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          12378,
+          1314,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          9498,
+          1481,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          6426,
+          803,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          534,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 91.4,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 193s sprinting",
+          "formattedValue": "91",
+          "raw": 47.183
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 43.1,
+          "fullMark": 100,
+          "displayValue": "23 passes · 66%",
+          "formattedValue": "43",
+          "raw": 21.935
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 70.7,
+          "fullMark": 100,
+          "displayValue": "13 interventions",
+          "formattedValue": "71",
+          "raw": 20.323
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 29.3,
+          "fullMark": 100,
+          "displayValue": "+0.06 xT · 0 key",
+          "formattedValue": "29",
+          "raw": 0.08
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 94.8,
+          "fullMark": 100,
+          "displayValue": "9.4 km",
+          "formattedValue": "95",
+          "raw": 13.703
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_09",
+      "name": "Jonas Jessup",
+      "team": "home",
+      "jersey_number": 9,
+      "role": "FW",
+      "minutes_played": 32,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 3.97,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 42.3,
+      "passes": {
+        "total": 34,
+        "completed": 27,
+        "accuracy_pct": 79.4,
+        "avg_pdr": 47.6
+      },
+      "xt_created": 0.0,
+      "xg": 0.78,
+      "xa": 0.0,
+      "shots": 3,
+      "shots_on_target": 2,
+      "goals": 2,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 13,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 13,
+      "rating": 10.0,
+      "is_motm": true,
+      "bps": 74,
+      "fantasy_bonus_points": 1,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2,
+          4350,
+          5596,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4280,
+          5723,
+          2,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          1976,
+          2372,
+          4,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2705,
+          2497,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2425,
+          4903,
+          0,
+          0,
+          2
+        ],
+        [
+          0,
+          0,
+          0,
+          948,
+          7571,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          344,
+          2107,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 74.1,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 42s sprinting",
+          "formattedValue": "74",
+          "raw": 40.759
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 98.3,
+          "fullMark": 100,
+          "displayValue": "2G · 0.78 xG",
+          "formattedValue": "98",
+          "raw": 6.75
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 84.5,
+          "fullMark": 100,
+          "displayValue": "27 passes · 79%",
+          "formattedValue": "84",
+          "raw": 60.294
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 87.9,
+          "fullMark": 100,
+          "displayValue": "13 interventions",
+          "formattedValue": "88",
+          "raw": 36.562
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "+0.00 xT · 0 key",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 50.0,
+          "fullMark": 100,
+          "displayValue": "4.0 km",
+          "formattedValue": "50",
+          "raw": 11.166
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_26",
+      "name": "Savio Neves",
+      "team": "away",
+      "jersey_number": 26,
+      "role": "FW",
+      "minutes_played": 32,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "fouls_committed": 2,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 4.4,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 89.4,
+      "passes": {
+        "total": 17,
+        "completed": 14,
+        "accuracy_pct": 82.4,
+        "avg_pdr": 51.6
+      },
+      "xt_created": 0.012,
+      "xg": 0.0,
+      "xa": 0.0,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 7,
+      "tackles_total": 3,
+      "tackles_won": 2,
+      "tackle_won_pct": 66.7,
+      "interceptions": 4,
+      "rating": 6.6,
+      "is_motm": false,
+      "bps": 14,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          744,
+          384,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          6034,
+          7160,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          2094,
+          4840,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2162,
+          1446,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3414,
+          530,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5901,
+          423,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          7802,
+          366,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          3918,
+          414,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          126,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 84.5,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 89s sprinting",
+          "formattedValue": "84",
+          "raw": 46.058
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 63.8,
+          "fullMark": 100,
+          "displayValue": "14 passes · 82%",
+          "formattedValue": "64",
+          "raw": 32.445
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 77.6,
+          "fullMark": 100,
+          "displayValue": "7 interventions",
+          "formattedValue": "78",
+          "raw": 22.5
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 19.0,
+          "fullMark": 100,
+          "displayValue": "+0.01 xT · 0 key",
+          "formattedValue": "19",
+          "raw": 0.034
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 77.6,
+          "fullMark": 100,
+          "displayValue": "4.4 km",
+          "formattedValue": "78",
+          "raw": 12.375
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_19",
+      "name": "Lars Tordal",
+      "team": "home",
+      "jersey_number": 19,
+      "role": "FW",
+      "minutes_played": 28,
+      "yellow_cards": 1,
+      "red_cards": 0,
+      "fouls_committed": 2,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 3.99,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 80.3,
+      "passes": {
+        "total": 4,
+        "completed": 2,
+        "accuracy_pct": 50.0,
+        "avg_pdr": 46.5
+      },
+      "xt_created": 0.003,
+      "xg": 0.0,
+      "xa": 0.0,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 2,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 2,
+      "rating": 5.7,
+      "is_motm": false,
+      "bps": 5,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          184,
+          491,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          2300,
+          7975,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2855,
+          4660,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1791,
+          1391,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2911,
+          794,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4231,
+          329,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          5701,
+          1032,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          4973,
+          926,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          175,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 81.0,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 80s sprinting",
+          "formattedValue": "81",
+          "raw": 45.636
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 5.2,
+          "fullMark": 100,
+          "displayValue": "2 passes · 50%",
+          "formattedValue": "5",
+          "raw": 3.0
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 31.0,
+          "fullMark": 100,
+          "displayValue": "2 interventions",
+          "formattedValue": "31",
+          "raw": 6.0
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 15.5,
+          "fullMark": 100,
+          "displayValue": "+0.00 xT · 0 key",
+          "formattedValue": "16",
+          "raw": 0.009
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 74.1,
+          "fullMark": 100,
+          "displayValue": "4.0 km",
+          "formattedValue": "74",
+          "raw": 11.97
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_23",
+      "name": "Mikel Maddox",
+      "team": "home",
+      "jersey_number": 23,
+      "role": "MF",
+      "minutes_played": 16,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 1,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 1.63,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 1.6,
+      "passes": {
+        "total": 8,
+        "completed": 6,
+        "accuracy_pct": 75.0,
+        "avg_pdr": 36.2
+      },
+      "xt_created": 0.083,
+      "xg": 0.0,
+      "xa": 0.02,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 4,
+      "tackles_total": 1,
+      "tackles_won": 1,
+      "tackle_won_pct": 100.0,
+      "interceptions": 3,
+      "rating": 6.8,
+      "is_motm": false,
+      "bps": 11,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          0,
+          2981,
+          1067,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          4567,
+          2029,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2766,
+          626,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          2782,
+          429,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          3110,
+          1904,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          485,
+          696,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 32.8,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 2s sprinting",
+          "formattedValue": "33",
+          "raw": 36.192
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 25.9,
+          "fullMark": 100,
+          "displayValue": "6 passes · 75%",
+          "formattedValue": "26",
+          "raw": 13.5
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 63.8,
+          "fullMark": 100,
+          "displayValue": "4 interventions",
+          "formattedValue": "64",
+          "raw": 13.5
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 50.0,
+          "fullMark": 100,
+          "displayValue": "+0.08 xT · 0 key",
+          "formattedValue": "50",
+          "raw": 0.249
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 17.2,
+          "fullMark": 100,
+          "displayValue": "1.6 km",
+          "formattedValue": "17",
+          "raw": 4.89
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_08",
+      "name": "Mateo Kovar",
+      "team": "away",
+      "jersey_number": 8,
+      "role": "MF",
+      "minutes_played": 15,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 1.63,
+      "top_speed_kmh": 33.7,
+      "sprint_seconds": 2.6,
+      "passes": {
+        "total": 17,
+        "completed": 13,
+        "accuracy_pct": 76.5,
+        "avg_pdr": 35.0
+      },
+      "xt_created": 0.125,
+      "xg": 0.0,
+      "xa": 0.03,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 2,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 2,
+      "rating": 6.6,
+      "is_motm": false,
+      "bps": 11,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          281,
+          236,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          2306,
+          4209,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          424,
+          3291,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          0,
+          1482,
+          2148,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1736,
+          2240,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          1156,
+          1752,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          465,
+          372,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 15.5,
+          "fullMark": 100,
+          "displayValue": "33.7 km/h · 3s sprinting",
+          "formattedValue": "16",
+          "raw": 34.012
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 60.3,
+          "fullMark": 100,
+          "displayValue": "13 passes · 76%",
+          "formattedValue": "60",
+          "raw": 29.835
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 31.0,
+          "fullMark": 100,
+          "displayValue": "2 interventions",
+          "formattedValue": "31",
+          "raw": 6.0
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 67.2,
+          "fullMark": 100,
+          "displayValue": "+0.12 xT · 0 key",
+          "formattedValue": "67",
+          "raw": 0.375
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 17.2,
+          "fullMark": 100,
+          "displayValue": "1.6 km",
+          "formattedValue": "17",
+          "raw": 4.89
+        }
+      ]
+    },
+    {
+      "player_id": "HSC_06",
+      "name": "Nathan Ames",
+      "team": "away",
+      "jersey_number": 6,
+      "role": "DF",
+      "minutes_played": 9,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 1.02,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 7.8,
+      "passes": {
+        "total": 2,
+        "completed": 2,
+        "accuracy_pct": 100.0,
+        "avg_pdr": 42.3
+      },
+      "xt_created": 0.034,
+      "xg": 0.0,
+      "xa": 0.01,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 1,
+      "tackles_total": 1,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 0,
+      "rating": 5.9,
+      "is_motm": false,
+      "bps": 2,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2399,
+          112,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          3117,
+          70,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1358,
+          82,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1346,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1430,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1957,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1187,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 43.1,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 8s sprinting",
+          "formattedValue": "43",
+          "raw": 36.936
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 19.0,
+          "fullMark": 100,
+          "displayValue": "2 passes · 100%",
+          "formattedValue": "19",
+          "raw": 6.0
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 12.1,
+          "fullMark": 100,
+          "displayValue": "1 interventions",
+          "formattedValue": "12",
+          "raw": 3.0
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 32.8,
+          "fullMark": 100,
+          "displayValue": "+0.03 xT · 0 key",
+          "formattedValue": "33",
+          "raw": 0.102
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "1.0 km",
+          "formattedValue": "3",
+          "raw": 3.06
+        }
+      ]
+    },
+    {
+      "player_id": "NBL_33",
+      "name": "Rico Calloway",
+      "team": "home",
+      "jersey_number": 33,
+      "role": "DF",
+      "minutes_played": 9,
+      "yellow_cards": 0,
+      "red_cards": 0,
+      "fouls_committed": 0,
+      "substituted_on": true,
+      "substituted_off": false,
+      "distance_km": 1.02,
+      "top_speed_kmh": 36.0,
+      "sprint_seconds": 8.1,
+      "passes": {
+        "total": 0,
+        "completed": 0,
+        "accuracy_pct": 0.0,
+        "avg_pdr": 0.0
+      },
+      "xt_created": 0.0,
+      "xg": 0.0,
+      "xa": 0.0,
+      "shots": 0,
+      "shots_on_target": 0,
+      "goals": 0,
+      "assists": 0,
+      "key_passes": 0,
+      "defensive_interventions": 0,
+      "tackles_total": 0,
+      "tackles_won": 0,
+      "tackle_won_pct": 0.0,
+      "interceptions": 0,
+      "rating": 6.0,
+      "is_motm": false,
+      "bps": 6,
+      "fantasy_bonus_points": 0,
+      "heatmap": [
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          665,
+          697,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2210,
+          874,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1277,
+          334,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          948,
+          73,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          2,
+          1081,
+          171,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          2048,
+          584,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          1691,
+          378,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          16,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        [
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ]
+      ],
+      "radar": [
+        {
+          "key": "pace",
+          "axis": "Pace",
+          "label": "Pace",
+          "value": 46.6,
+          "fullMark": 100,
+          "displayValue": "36.0 km/h · 8s sprinting",
+          "formattedValue": "47",
+          "raw": 36.972
+        },
+        {
+          "key": "shooting",
+          "axis": "Shooting",
+          "label": "Shooting",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0G · 0.00 xG",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "passing",
+          "axis": "Passing",
+          "label": "Passing",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0 passes · 0%",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "defending",
+          "axis": "Defending",
+          "label": "Defending",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "0 interventions",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "threat",
+          "axis": "Threat",
+          "label": "Threat",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "+0.00 xT · 0 key",
+          "formattedValue": "0",
+          "raw": 0.0
+        },
+        {
+          "key": "workrate",
+          "axis": "Work Rate",
+          "label": "Work Rate",
+          "value": 5.0,
+          "fullMark": 100,
+          "displayValue": "1.0 km",
+          "formattedValue": "3",
+          "raw": 3.06
+        }
+      ]
+    }
+  ]
+}

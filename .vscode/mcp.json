@@ -1,0 +1,10 @@
+{
+  "servers": {
+    "ingame-studio": {
+      "type": "stdio",
+      "command": "python",
+      "args": ["-m", "backend.mcp_server"],
+      "cwd": "${workspaceFolder}"
+    }
+  }
+}

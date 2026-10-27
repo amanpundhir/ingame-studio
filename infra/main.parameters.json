@@ -1,0 +1,24 @@
+{
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentParameters.json#",
+  "contentVersion": "1.0.0.0",
+  "parameters": {
+    "location": {
+      "value": "eastus"
+    },
+    "environmentName": {
+      "value": "ingame-prod"
+    },
+    "targetPort": {
+      "value": 8000
+    },
+    "cpuCore": {
+      "value": "0.5"
+    },
+    "memorySize": {
+      "value": "1.0Gi"
+    },
+    "foundryDeployment": {
+      "value": "gpt-4.1-mini"
+    }
+  }
+}

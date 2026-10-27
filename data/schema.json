@@ -1,0 +1,658 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "InGameDataSchemas",
+  "description": "Master JSONSchema draft-07 specification for InGame Studio telemetry, events, and intelligence payloads",
+  "definitions": {
+    "PlayerTracking": {
+      "type": "object",
+      "required": [
+        "player_id",
+        "team",
+        "jersey_number",
+        "name",
+        "role",
+        "x",
+        "y",
+        "vx",
+        "vy",
+        "speed_kmh"
+      ],
+      "properties": {
+        "player_id": {
+          "type": "string"
+        },
+        "team": {
+          "type": "string",
+          "enum": [
+            "home",
+            "away"
+          ]
+        },
+        "jersey_number": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 99
+        },
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string",
+          "enum": [
+            "GK",
+            "DF",
+            "MF",
+            "FW"
+          ]
+        },
+        "x": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 68.0
+        },
+        "vx": {
+          "type": "number"
+        },
+        "vy": {
+          "type": "number"
+        },
+        "speed_kmh": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 40.0
+        },
+        "is_visible": {
+          "type": "boolean",
+          "default": true
+        }
+      },
+      "additionalProperties": false
+    },
+    "BallTracking": {
+      "type": "object",
+      "required": [
+        "x",
+        "y",
+        "z",
+        "vx",
+        "vy",
+        "vz",
+        "speed_kmh",
+        "status"
+      ],
+      "properties": {
+        "x": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "y": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 68.0
+        },
+        "z": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 25.0
+        },
+        "vx": {
+          "type": "number"
+        },
+        "vy": {
+          "type": "number"
+        },
+        "vz": {
+          "type": "number"
+        },
+        "speed_kmh": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 150.0
+        },
+        "possession_team": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "possessed_by_player_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "in_play",
+            "dead_ball",
+            "out_of_bounds",
+            "goal"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "TelemetryFrame": {
+      "type": "object",
+      "required": [
+        "frame_id",
+        "match_id",
+        "timestamp",
+        "period",
+        "clock",
+        "pitch_dimensions",
+        "ball",
+        "players"
+      ],
+      "properties": {
+        "frame_id": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "match_id": {
+          "type": "string"
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "period": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "clock": {
+          "type": "string",
+          "pattern": "^[0-9]{2}:[0-9]{2}(\\.[0-9]{1,3})?$"
+        },
+        "pitch_dimensions": {
+          "type": "object",
+          "required": [
+            "length",
+            "width"
+          ],
+          "properties": {
+            "length": {
+              "type": "number",
+              "enum": [
+                105.0
+              ]
+            },
+            "width": {
+              "type": "number",
+              "enum": [
+                68.0
+              ]
+            }
+          },
+          "additionalProperties": false
+        },
+        "ball": {
+          "$ref": "#/definitions/BallTracking"
+        },
+        "players": {
+          "type": "array",
+          "minItems": 22,
+          "maxItems": 22,
+          "items": {
+            "$ref": "#/definitions/PlayerTracking"
+          }
+        },
+        "active_event_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "data_provenance": {
+          "type": "string",
+          "enum": [
+            "synthetic_simulation"
+          ]
+        },
+        "synthetic_data_notice": {
+          "type": "string"
+        }
+      },
+      "additionalProperties": false
+    },
+    "MatchEvent": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "match_id",
+        "event_type",
+        "period",
+        "clock",
+        "frame_index",
+        "team",
+        "player_id",
+        "player_name",
+        "location_x",
+        "location_y",
+        "outcome"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "match_id": {
+          "type": "string"
+        },
+        "event_type": {
+          "type": "string",
+          "enum": [
+            "pass",
+            "shot",
+            "tackle",
+            "turnover",
+            "pressure",
+            "foul",
+            "card",
+            "substitution",
+            "set_piece",
+            "goal"
+          ]
+        },
+        "sub_type": {
+          "type": "string"
+        },
+        "period": {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 2
+        },
+        "clock": {
+          "type": "string"
+        },
+        "frame_index": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "team": {
+          "type": "string"
+        },
+        "player_id": {
+          "type": "string"
+        },
+        "player_name": {
+          "type": "string"
+        },
+        "secondary_player_id": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "secondary_player_name": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "location_x": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "location_y": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 68.0
+        },
+        "end_x": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "end_y": {
+          "type": [
+            "number",
+            "null"
+          ],
+          "minimum": 0.0,
+          "maximum": 68.0
+        },
+        "outcome": {
+          "type": "string"
+        },
+        "tactical_metrics": {
+          "type": "object",
+          "properties": {
+            "pass_difficulty": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 100.0
+            },
+            "ball_speed_kmh": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 150.0
+            },
+            "chaos_index": {
+              "type": "number",
+              "minimum": 0.0,
+              "maximum": 100.0
+            },
+            "xt_gained": {
+              "type": "number"
+            }
+          },
+          "additionalProperties": true
+        },
+        "context": {
+          "type": "string"
+        },
+        "data_provenance": {
+          "type": "string",
+          "enum": [
+            "synthetic_simulation"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "FactPack": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "match_minute",
+        "passer_name",
+        "receiver_name",
+        "pass_distance_m",
+        "pass_difficulty",
+        "ball_speed_kmh",
+        "chaos_index",
+        "xt_gained",
+        "tactical_context"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "match_minute": {
+          "type": "string"
+        },
+        "period": {
+          "type": "integer"
+        },
+        "event_type": {
+          "type": "string"
+        },
+        "passer_name": {
+          "type": "string"
+        },
+        "receiver_name": {
+          "type": "string"
+        },
+        "team_name": {
+          "type": "string"
+        },
+        "opponent_name": {
+          "type": "string"
+        },
+        "start_x": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "start_y": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 68.0
+        },
+        "end_x": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "end_y": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 68.0
+        },
+        "pass_distance_m": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 105.0
+        },
+        "pass_difficulty": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 100.0
+        },
+        "ball_speed_kmh": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 150.0
+        },
+        "chaos_index": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 100.0
+        },
+        "xt_gained": {
+          "type": "number"
+        },
+        "defenders_in_corridor": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "defenders_in_cone": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "tactical_context": {
+          "type": "string"
+        },
+        "sub_type": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "outcome": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "frame_index": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "milestone": {
+          "type": [
+            "string",
+            "null"
+          ]
+        }
+      },
+      "additionalProperties": false
+    },
+    "VerifiedInsight": {
+      "type": "object",
+      "required": [
+        "event_id",
+        "grounding_score",
+        "casual_story",
+        "tactical_analysis",
+        "club_loyalist_story",
+        "player_lock_story",
+        "lower_third_ticker"
+      ],
+      "properties": {
+        "event_id": {
+          "type": "string"
+        },
+        "grounding_score": {
+          "type": "number",
+          "minimum": 0.0,
+          "maximum": 1.0
+        },
+        "verification_status": {
+          "type": "string",
+          "enum": [
+            "VERIFIED",
+            "FALLBACK_APPLIED",
+            "verified",
+            "fallback",
+            "rejected"
+          ]
+        },
+        "retries_attempted": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "agent_trace": {
+          "type": [
+            "array",
+            "null"
+          ],
+          "items": {
+            "type": "string"
+          },
+          "description": "Ordered agent hand-offs for this insight."
+        },
+        "frame_index": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Tracking frame (25 Hz) of the moment the insight explains."
+        },
+        "match_clock": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "period": {
+          "type": [
+            "integer",
+            "null"
+          ]
+        },
+        "display_from_frame": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "First tracking frame the overlay should show."
+        },
+        "display_until_frame": {
+          "type": [
+            "integer",
+            "null"
+          ],
+          "description": "Last tracking frame the overlay should show."
+        },
+        "display_duration_sec": {
+          "type": [
+            "number",
+            "null"
+          ]
+        },
+        "casual_story": {
+          "type": "string"
+        },
+        "tactical_analysis": {
+          "type": "string"
+        },
+        "club_loyalist_story": {
+          "type": "string"
+        },
+        "player_lock_story": {
+          "type": "string"
+        },
+        "lower_third_ticker": {
+          "type": "string"
+        },
+        "metrics": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "number"
+          }
+        },
+        "telestrator_vectors": {
+          "type": "object",
+          "additionalProperties": true
+        },
+        "translations": {
+          "type": [
+            "object",
+            "null"
+          ],
+          "additionalProperties": true
+        },
+        "narrative_source": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "description": "Where the base narrative came from."
+        }
+      },
+      "additionalProperties": false
+    },
+    "BroadcastPayload": {
+      "type": "object",
+      "required": [
+        "type",
+        "timestamp",
+        "data"
+      ],
+      "properties": {
+        "type": {
+          "type": "string",
+          "enum": [
+            "telemetry",
+            "event",
+            "insight",
+            "metric_alert",
+            "pong",
+            "control"
+          ]
+        },
+        "timestamp": {
+          "type": "string"
+        },
+        "data": {
+          "type": [
+            "object",
+            "array"
+          ]
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "oneOf": [
+    {
+      "$ref": "#/definitions/TelemetryFrame"
+    },
+    {
+      "$ref": "#/definitions/MatchEvent"
+    },
+    {
+      "$ref": "#/definitions/FactPack"
+    },
+    {
+      "$ref": "#/definitions/VerifiedInsight"
+    },
+    {
+      "$ref": "#/definitions/BroadcastPayload"
+    }
+  ]
+}
