@@ -4,7 +4,7 @@
 
 **Live demo (no sign-in needed): https://app-ingame-kkubzmbwg2t4c.greensand-a835732b.eastus.azurecontainerapps.io/**
 
-Built for the Microsoft "Inside the Game" hackathon. **Target prizes:** Grand Prize and **Best Use of Microsoft Foundry Project**. **Platform:** web application for desktop browsers (Chrome or Edge), Python 3.12 backend, React 18 frontend; runs locally, in Docker, or on Azure Container Apps.
+Built for the Microsoft "Inside the Game" hackathon. **Platform:** web application for desktop browsers (Chrome or Edge), Python 3.12 backend, React 18 frontend; runs locally, in Docker, or on Azure Container Apps.
 
 > **Data notice:** every club, player, match and number in this project is synthetic. The two clubs (Northbridge Lions and Harbourside City) and all players are fictional. Nothing here is an official feed or refers to a real person or organisation.
 
