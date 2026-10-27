@@ -57,7 +57,7 @@ The app is deployed from this repository by GitHub Actions to Azure Container Ap
 
 ## Pitch
 
-**What we built.** A complete match-intelligence studio. A seeded simulator plays a 94-minute match (22 players and a ball at 25 Hz, with passes, shots, goals, tackles, pressure, turnovers, fouls, cards and substitutions, and the teams changing ends at half-time). Every event is turned into structured facts, explained by a language model, checked against the tracking data, and rendered as ticker lines, telestrator vectors, alerts, player cards, replay clips, a highlights video and a match story.
+**What I built.** A complete match-intelligence studio. A seeded simulator plays a 94-minute match (22 players and a ball at 25 Hz, with passes, shots, goals, tackles, pressure, turnovers, fouls, cards and substitutions, and the teams changing ends at half-time). Every event is turned into structured facts, explained by a language model, checked against the tracking data, and rendered as ticker lines, telestrator vectors, alerts, player cards, replay clips, a highlights video and a match story.
 
 **Which Microsoft and Azure technologies it uses.**
 
@@ -71,7 +71,7 @@ The app is deployed from this repository by GitHub Actions to Azure Container Ap
 | **GitHub** | Source, and the GitHub Actions workflow for tests, the frontend build and deployment. |
 | **GitHub Copilot Agent Mode** | Used during development to plan the web app and its UI structure: the five-tab layout (InGame, Players, Tactics, Persona, Recap), the shared top bar for persona, club and language, and how the React components are split. |
 
-What is **not** used: Microsoft Fabric, Azure's own MCP server and Azure Functions. We list only what is wired in. The Agent Framework graph can be switched off with `INGAME_ORCHESTRATION=plain` (the same four steps then run as a plain loop, which is what the tests compare against).
+What is **not** used: Microsoft Fabric, Azure's own MCP server and Azure Functions. I list only what is wired in. The Agent Framework graph can be switched off with `INGAME_ORCHESTRATION=plain` (the same four steps then run as a plain loop, which is what the tests compare against).
 
 **What it does.**
 
@@ -161,7 +161,7 @@ flowchart LR
 - Recap tab: highlights video from the clips, match story and turning points, in English and Spanish.
 - Personas, club and player focus, single-metric spotlight, English and Spanish.
 - Per-event Spanish persona text comes from templates; match stories, tactical notes and the per-event narratives are model-written in both languages. The UI labels are English.
-- Limits we state openly: goalkeeper-save, penalty, offside, corner and injury events are not simulated; metrics come from tracking data, not from a video model (video-based auto-eventing is the production path, not part of this build).
+- Limits I state openly: goalkeeper-save, penalty, offside, corner and injury events are not simulated; metrics come from tracking data, not from a video model (video-based auto-eventing is the production path, not part of this build).
 
 ## Cost control: cache, single flight and token budget
 
